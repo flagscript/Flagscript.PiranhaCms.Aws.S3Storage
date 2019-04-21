@@ -25,7 +25,7 @@ clone_depth: 1
 
 #environment variables
 environment:
-  use_version: 1.0.0-alpha.1
+  use_version: 1.0.0-alpha
 
 # scripts that run after cloning repository
 install:
@@ -39,7 +39,7 @@ dotnet_csproj:
   package_version: '%use_version%'
   assembly_version: '{version}'
   file_version: '{version}'
-  informational_version: '{version}'
+  informational_version: '%use_version%'
 
 #---------------------------------#
 #       build configuration       #
@@ -60,7 +60,7 @@ before_build:
   - dotnet restore --verbosity m
 
 build_script:
-  # output will be in ./src/Flagscript.Piranha.Aws.S3Storage/bin/Debug/netstandard2.0/
+  # output will be in ./src/Flagscript.PiranhaCms.Aws.S3Storage/bin/Debug/netstandard2.0/
   - dotnet build --configuration $CONFIGURATION --no-restore
   - dotnet pack  --configuration $CONFIGURATION --no-build
 
@@ -108,7 +108,7 @@ for:
     - master
   # Run Unit Tests Only
   test_script:
-    - dotnet test --configuration $CONFIGURATION --no-restore --no-build test/Flagscript.Piranha.Aws.S3Storage.Unit.Tests/Flagscript.Piranha.Aws.S3Storage.Unit.Tests.csproj
+    - dotnet test --configuration $CONFIGURATION --no-restore --no-build test/Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests/Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests.csproj
 -
   matrix:
     only:
