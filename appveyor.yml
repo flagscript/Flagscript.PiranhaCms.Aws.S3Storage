@@ -1,0 +1,121 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: '1.0.0.{build}'
+
+# Maximum number of concurrent jobs for the project
+max_jobs: 1
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: ubuntu
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  # Set git line endings in case we forgot to in repo.
+  - git config --global core.autocrlf input
+
+# set clone depth
+clone_depth: 1
+
+#environment variables
+environment:
+  use_version: 1.0.0-alpha.1
+
+# scripts that run after cloning repository
+install:
+  # Display NuGet version
+  - nuget help | head -1
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '%use_version%'
+  package_version: '%use_version%'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration:
+  - Debug
+  - Release
+
+# MS Build Settings - disable
+build: off
+
+before_build:
+  # Display .NET Core Version
+  - dotnet --version
+  # Display minimal restore text
+  - dotnet restore --verbosity m
+
+build_script:
+  # output will be in ./src/Flagscript.Piranha.Aws.S3Storage/bin/Debug/netstandard2.0/
+  - dotnet build --configuration $CONFIGURATION --no-restore
+  - dotnet pack  --configuration $CONFIGURATION --no-build
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+# MS Build Test Settings - Disable
+# See test configuration in for matrix
+test: off
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+   - path: '**\*.nupkg'
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+deploy:
+  - provider: NuGet
+    api_key:
+      secure: e9cWhlP7JNSvgFVwQR3Ai5990+p4TcX/7csCuY6n597RODPtyVNbO9w6TGMM9GY0
+    skip_symbols: true
+    on:
+      branch: master
+      APPVEYOR_REPO_TAG: true
+
+#---------------------------------#
+#      matrix configuration       #
+#---------------------------------#
+
+# Specialized settings per matrix.
+
+for:
+-
+  matrix:
+    only:
+      - configuration: Debug
+  branches:
+    except:
+    - master
+  # Run Unit Tests Only
+  test_script:
+    - dotnet test --configuration $CONFIGURATION --no-restore --no-build test/Flagscript.Piranha.Aws.S3Storage.Unit.Tests/Flagscript.Piranha.Aws.S3Storage.Unit.Tests.csproj
+-
+  matrix:
+    only:
+      - configuration: Release
+  branches:
+    only:
+    - master
+  # Run Unit and Integration Tests
+  test_script:
+    - dotnet test --configuration $CONFIGURATION --no-restore --no-build --test-adapter-path:. --logger:Appveyor
