@@ -20,19 +20,19 @@
     <PackageTags>dotnet, dotnet-standard, dotnet-library, flagscript, aws, aws-s3, cms, piranha, piranhacms</PackageTags>
     <Title>Flagscript.PiranhaCms.Aws.S3Storage</Title>
     <Description>S3/Cloudfront Media Provider for Piranha CMS</Description>
-    <ReleaseVersion>1.0.0-alpha</ReleaseVersion>
-    <AssemblyVersion>1.0.0-alpha</AssemblyVersion>
-    <FileVersion>1.0.0-alpha</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
     <InformationalVersion>1.0.0-alpha</InformationalVersion>
     <PackageId>Flagscript.PiranhaCms.Aws.S3Storage</PackageId>
     <Product>Flagscript.PiranhaCms.Aws.S3Storage</Product>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" Version="3.3.0" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.0" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.0" />
     <PackageReference Include="Piranha" Version="6.0.0" />
-    <PackageReference Include="AWSSDK.S3" Version="3.3.100" />
     <PackageReference Include="Flurl" Version="2.4.0" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.100" />
     <PackageReference Include="Flagscript" Version="3.0.0" />
   </ItemGroup>
 </Project>
