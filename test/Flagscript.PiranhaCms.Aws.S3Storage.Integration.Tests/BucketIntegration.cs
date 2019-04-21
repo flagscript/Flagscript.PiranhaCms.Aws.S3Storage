@@ -10,7 +10,7 @@ using Flurl.Http;
 using Piranha;
 using Xunit;
 
-namespace Flagscript.Piranha.Aws.S3Storage.Integration.Tests
+namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 {
 
 	/// <summary>

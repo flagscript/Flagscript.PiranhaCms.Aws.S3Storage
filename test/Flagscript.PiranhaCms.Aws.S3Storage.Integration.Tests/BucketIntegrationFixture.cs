@@ -7,7 +7,7 @@ using Amazon.Extensions.NETCore.Setup;
 using Amazon.S3;
 using Piranha;
 
-namespace Flagscript.Piranha.Aws.S3Storage.Integration.Tests
+namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 {
 
 	/// <summary>
