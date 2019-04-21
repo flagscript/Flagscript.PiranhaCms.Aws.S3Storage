@@ -1,11 +1,11 @@
-# Flagscript.Piranha.Aws.S3Storage
+# Flagscript.PiranhaCms.Aws.S3Storage
 
 S3/Cloudfront Media Provider for Piranha CMS.
 
 Version | Status
 --- | ---
-Latest | [![last commit](https://img.shields.io/github/last-commit/flagscript/Flagscript.Piranha.Aws.S3Storage.svg?logo=github)](https://github.com/flagscript/Flagscript.Piranha.Aws.S3Storage) [![build status](https://img.shields.io/appveyor/ci/GregKaestle/flagscript-piranha-aws-s3storage.svg?logo=appveyor)](https://ci.appveyor.com/project/GregKaestle/flagscript-piranha-aws-s3storage) [![unit test](https://img.shields.io/appveyor/tests/GregKaestle/flagscript-piranha-aws-s3storage.svg?label=unit%20tests&logo=appveyor)](https://ci.appveyor.com/project/GregKaestle/flagscript-piranha-aws-s3storage)
-Master | [![last commit](https://img.shields.io/github/last-commit/flagscript/Flagscript.Piranha.Aws.S3Storage/master.svg?logo=github)](https://github.com/flagscript/Flagscript.Piranha.Aws.S3Storage) [![build status](https://img.shields.io/appveyor/ci/GregKaestle/flagscript-piranha-aws-s3storage/master.svg?logo=appveyor)](https://ci.appveyor.com/project/GregKaestle/flagscript-piranha-aws-s3storage) [![unit and integration test](https://img.shields.io/appveyor/tests/GregKaestle/flagscript-piranha-aws-s3storage/master.svg?label=unit/integration%20tests&logo=appveyor)](https://ci.appveyor.com/project/GregKaestle/flagscript-piranha-aws-s3storage) [![CodeFactor](https://www.codefactor.io/repository/github/flagscript/flagscript.piranha.aws.s3storage/badge)](https://www.codefactor.io/repository/github/flagscript/flagscript.piranha.aws.s3storage) [![LGTM Total Alerts](https://img.shields.io/lgtm/alerts/g/flagscript/Flagscript.Piranha.Aws.S3Storage.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/flagscript/Flagscript.Piranha.Aws.S3Storage/alerts/)
+Latest | [![last commit](https://img.shields.io/github/last-commit/flagscript/Flagscript.PiranhaCms.Aws.S3Storage.svg?logo=github)](https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage) [![build status](https://img.shields.io/appveyor/ci/Flagscript/flagscript-piranhacms-aws-s3storage.svg?logo=appveyor)](https://ci.appveyor.com/project/Flagscript/flagscript-piranhacms-aws-s3storage) [![unit test](https://img.shields.io/appveyor/tests/Flagscript/flagscript-piranhacms-aws-s3storage.svg?label=unit%20tests&logo=appveyor)](https://ci.appveyor.com/project/Flagscript/flagscript-piranhacms-aws-s3storage)
+Master | [![last commit](https://img.shields.io/github/last-commit/flagscript/Flagscript.PiranhaCms.Aws.S3Storage/master.svg?logo=github)](https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage) [![build status](https://img.shields.io/appveyor/ci/Flagscript/flagscript-piranhacms-aws-s3storage/master.svg?logo=appveyor)](https://ci.appveyor.com/project/Flagscript/flagscript-piranhacms-aws-s3storage) [![unit and integration test](https://img.shields.io/appveyor/tests/Flagscript/flagscript-piranhacms-aws-s3storage/master.svg?label=unit/integration%20tests&logo=appveyor)](https://ci.appveyor.com/project/Flagscript/flagscript-piranhacms-aws-s3storage) [![CodeFactor](https://www.codefactor.io/repository/github/flagscript/flagscript.piranhacms.aws.s3storage/badge)](https://www.codefactor.io/repository/github/flagscript/flagscript.piranhacms.aws.s3storage) [![LGTM Total Alerts](https://img.shields.io/lgtm/alerts/g/flagscript/Flagscript.PiranhaCms.Aws.S3Storage.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/flagscript/Flagscript.PiranhaCms.Aws.S3Storage/alerts/)
 Release | Coming Soon!
 
 ## Simple Usage
@@ -23,18 +23,18 @@ services.AddS3Storage(storageConfig);
 
 ## Download
 
-Flagscript.Piranha.Aws.S3Storage is available as a NuGet package:
+Flagscript.PiranhaCms.Aws.S3Storage is available as a NuGet package:
 
 ### .NET CLI
 
 ```bash
-> dotnet add package Flagscript.Piranha.Aws.S3Storage --version 1.0.0-alpha.1
+> dotnet add package Flagscript.PiranhaCms.Aws.S3Storage --version 1.0.0-alpha
 ```
 
 ###  .csproj
 
 ```xml
-<PackageReference Include="Flagscript.Piranha.Aws.S3Storage" Version="1.0.0-alpha.1" />
+<PackageReference Include="Flagscript.PiranhaCms.Aws.S3Storage" Version="1.0.0-alpha" />
 ```
 
 ## Contributing
@@ -46,7 +46,7 @@ for details on our code of conduct.
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see 
-the [tags on this repository](https://github.com/flagscript/Flagscript.Piranha.Aws.S3Storage/releases). 
+the [tags on this repository](https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage/releases). 
 
 ## Authors
 
@@ -54,4 +54,4 @@ the [tags on this repository](https://github.com/flagscript/Flagscript.Piranha.A
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/flagscript/Flagscript.Piranha.Aws.S3Storage/blob/master/LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage/blob/master/LICENSE.md) file for details.
