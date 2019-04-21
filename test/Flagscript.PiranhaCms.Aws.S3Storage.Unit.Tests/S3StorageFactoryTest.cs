@@ -8,9 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
-using static Flagscript.Piranha.Aws.S3Storage.Unit.Tests.TestConstants;
+using static Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests.TestConstants;
 
-namespace Flagscript.Piranha.Aws.S3Storage.Unit.Tests
+namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 {
 
 	/// <summary>

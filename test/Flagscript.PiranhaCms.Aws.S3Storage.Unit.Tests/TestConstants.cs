@@ -1,4 +1,4 @@
-﻿namespace Flagscript.Piranha.Aws.S3Storage.Unit.Tests
+﻿namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 {
 
 	/// <summary>
