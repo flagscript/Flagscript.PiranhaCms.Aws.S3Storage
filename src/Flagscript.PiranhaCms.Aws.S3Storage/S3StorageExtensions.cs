@@ -3,7 +3,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Piranha;
 
-namespace Flagscript.Piranha.Aws.S3Storage
+namespace Flagscript.PiranhaCms.Aws.S3Storage
 {
 
 	public static class S3StorageExtensions

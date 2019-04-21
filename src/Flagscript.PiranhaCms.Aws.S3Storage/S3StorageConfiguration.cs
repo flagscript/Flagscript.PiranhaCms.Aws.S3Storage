@@ -3,7 +3,7 @@
 using Amazon.Extensions.NETCore.Setup;
 using Flurl;
 
-namespace Flagscript.Piranha.Aws.S3Storage
+namespace Flagscript.PiranhaCms.Aws.S3Storage
 {
 
 	/// <summary>

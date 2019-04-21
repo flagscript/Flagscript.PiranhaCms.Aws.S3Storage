@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Flurl;
 using Piranha;
 
-namespace Flagscript.Piranha.Aws.S3Storage
+namespace Flagscript.PiranhaCms.Aws.S3Storage
 {
 
 	/// <summary>

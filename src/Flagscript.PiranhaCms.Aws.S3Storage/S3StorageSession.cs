@@ -7,7 +7,7 @@ using Amazon.S3.Model;
 using Flurl;
 using Piranha;
 
-namespace Flagscript.Piranha.Aws.S3Storage
+namespace Flagscript.PiranhaCms.Aws.S3Storage
 {
 
 	/// <summary>

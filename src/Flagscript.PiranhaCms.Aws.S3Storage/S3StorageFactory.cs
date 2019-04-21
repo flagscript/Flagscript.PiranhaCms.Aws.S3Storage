@@ -4,7 +4,7 @@ using Amazon.Extensions.NETCore.Setup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Flagscript.Piranha.Aws.S3Storage
+namespace Flagscript.PiranhaCms.Aws.S3Storage
 {
 
 	/// <summary>
