@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{64F7C618-57E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flagscript.PiranhaCms.Aws.S3Storage", "src\Flagscript.PiranhaCms.Aws.S3Storage\Flagscript.PiranhaCms.Aws.S3Storage.csproj", "{2A86D052-A9BB-4488-85D1-EA2FA8979C78}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{38807F83-3294-44E0-BAFA-733EBE9C1488}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests", "test\Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests\Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests.csproj", "{780B1C5D-0A44-44B5-BB73-6553C57B0532}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,21 @@ Global
 		{2A86D052-A9BB-4488-85D1-EA2FA8979C78}.Release|x64.Build.0 = Release|Any CPU
 		{2A86D052-A9BB-4488-85D1-EA2FA8979C78}.Release|x86.ActiveCfg = Release|Any CPU
 		{2A86D052-A9BB-4488-85D1-EA2FA8979C78}.Release|x86.Build.0 = Release|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Debug|x64.Build.0 = Debug|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Debug|x86.Build.0 = Debug|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Release|x64.ActiveCfg = Release|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Release|x64.Build.0 = Release|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Release|x86.ActiveCfg = Release|Any CPU
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2A86D052-A9BB-4488-85D1-EA2FA8979C78} = {64F7C618-57EE-4E33-AF56-9C6CA964285B}
+		{780B1C5D-0A44-44B5-BB73-6553C57B0532} = {38807F83-3294-44E0-BAFA-733EBE9C1488}
 	EndGlobalSection
 EndGlobal
