@@ -29,10 +29,19 @@
     <ProjectReference Include="..\..\src\Flagscript.PiranhaCms.Aws.S3Storage\Flagscript.PiranhaCms.Aws.S3Storage.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="appsettings.root" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="test.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.other.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.root.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

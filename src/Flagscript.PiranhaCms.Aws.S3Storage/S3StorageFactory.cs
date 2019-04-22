@@ -3,6 +3,7 @@
 using Amazon.Extensions.NETCore.Setup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Flagscript.PiranhaCms.Aws.S3Storage
 {
@@ -14,43 +15,116 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 	{
 
 		/// <summary>
-		/// The storage configuration to use.
+		/// Override <see cref="PiranhaS3StorageOptions"/>.
 		/// </summary>
-		internal S3StorageConfiguration _storageConfiguration;
+		/// <value>The override <see cref="PiranhaS3StorageOptions"/>.</value>
+		internal PiranhaS3StorageOptions S3StorageOptions { get; private set; }
 
 		/// <summary>
-		/// Creates the factory for a given <see cref="S3StorageConfiguration"/>.
+		/// Override <see cref="AWSOptions"/>.
 		/// </summary>
-		/// <param name="storageConfiguration">Configuration used for <see cref="S3Storage"/>.</param>
-		internal S3StorageFactory(S3StorageConfiguration storageConfiguration)
+		/// <value>The override <see cref="AWSOptions"/>.</value>
+		internal AWSOptions AwsOptions { get; private set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="s3StorageOptions">
+		/// The <see cref="S3StorageOptions"/> used to override the default options added using 
+		/// <see cref="PiranhaS3ServiceCollectionExtensions.AddPiranhaS3StorageOptions"/>.
+		/// </param>
+		/// <param name="awsOptions">
+		/// The <see cref="AWSOptions"/> used to create the service client overriding 
+		/// the default AWS options added using <see cref="ServiceCollectionExtensions.AddDefaultAWSOptions(IServiceCollection, AWSOptions)"/>.
+		/// </param>
+		internal S3StorageFactory(PiranhaS3StorageOptions s3StorageOptions, AWSOptions awsOptions)
 		{
-			_storageConfiguration = storageConfiguration ?? throw new ArgumentNullException(nameof(storageConfiguration));
+			S3StorageOptions = s3StorageOptions;
+			AwsOptions = awsOptions;
 		}
 
 		/// <summary>
-		/// Storage object with potential <see cref="AWSOptions"/> from the <see cref="IServiceProvider"/>
-		/// if none are set by the caller.
+		/// Creates a <see cref="S3Storage"/> provider searching the service provider
+		/// for configuration.
 		/// </summary>
-		/// <param name="provider">Current service provider.</param>
+		/// <param name="provider">The dependency injection provider.</param>
 		/// <returns><see cref="S3Storage"/> to be added to DI.</returns>
-		internal S3Storage GetStorageValidateOptions(IServiceProvider provider)
+		internal S3Storage CreateS3Storage(IServiceProvider provider)
 		{
-			if (_storageConfiguration.AwsOptions == null)
+
+			var loggerFactory = provider.GetService<ILoggerFactory>();
+			var logger = loggerFactory?.CreateLogger("Flagscript.PiranhaCms.Aws.S3Storage");
+
+			// Obtain S3 Storage Options
+			var s3StorageOptions = S3StorageOptions ?? provider.GetService<PiranhaS3StorageOptions>();
+			if (s3StorageOptions == null)
 			{
-				var options = provider.GetService<AWSOptions>();
-				if (options == null)
+				var configuration = provider.GetService<IConfiguration>();
+				if (configuration != null)
 				{
-					Console.WriteLine("No Profile");
-					var configuration = provider.GetService<IConfiguration>();
-					if (configuration != null)
+					s3StorageOptions = configuration.GetS3StorageOptions();
+					if (s3StorageOptions != null)
 					{
-						options = configuration.GetAWSOptions();
+						logger?.LogInformation("Found Piranha S3 Options in IConfiguration");
 					}
 				}
-				_storageConfiguration.AwsOptions = options;
 			}
 
-			return new S3Storage(_storageConfiguration);
+			// Obtain Aws Options
+			var awsOptions = AwsOptions ?? provider.GetService<AWSOptions>();
+			if (awsOptions == null)
+			{
+				var configuration = provider.GetService<IConfiguration>();
+				if (configuration != null)
+				{
+					awsOptions = configuration.GetAWSOptions();
+					if (awsOptions != null)
+					{
+						logger?.LogInformation("Found AWS options in IConfiguration");
+					}
+				}
+			}
+
+			return CreateS3Storage(logger, s3StorageOptions, awsOptions);
+
+		}
+
+		/// <summary>
+		/// Creates the AWS service client that implements the service client interface. The AWSOptions object
+		/// will be searched for in the IServiceProvider.
+		/// </summary>
+		/// <param name="logger">Flagscript.PiranhaCms.Aws.S3Storage category logger.</param>
+		/// <param name="s3StorageOptions"><see cref="PiranhaS3StorageOptions"/> used to configure the <see cref="S3Storage"/>.</param>
+		/// <param name="awsOptions">The <see cref="AWSOptions"/> used to configure the S3 service client.</param>
+		/// <returns>The configured <see cref="S3Storage"/>.</returns>
+		internal S3Storage CreateS3Storage(ILogger logger, PiranhaS3StorageOptions s3StorageOptions, AWSOptions awsOptions)
+		{
+
+			// Validate s3StorateOptions
+
+			var finalS3StorateOptions = new PiranhaS3StorageOptions
+			{
+				BucketName = s3StorageOptions.BucketName,
+				KeyPrefix = s3StorageOptions.KeyPrefix,
+				UrlRoot = s3StorageOptions.UrlRoot
+			};
+
+			if (string.IsNullOrWhiteSpace(finalS3StorateOptions.BucketName))
+			{
+
+				finalS3StorateOptions.BucketName = Environment.GetEnvironmentVariable(PiranhaS3StorageOptions.BuucketEnvironmentVariable);
+
+				if (string.IsNullOrEmpty(finalS3StorateOptions.BucketName))
+				{
+					throw new FlagscriptException("Piranha S3 BucketName not configured");
+				}
+				else
+				{
+					logger?.LogInformation("Piranha S3 BucketName found in environment variables");
+				}
+
+			}
+
 		}
 
 	}
