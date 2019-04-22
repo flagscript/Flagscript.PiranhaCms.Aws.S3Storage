@@ -11,7 +11,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 	{
 
 		/// <summary>
-		/// The default section where settings are read from the IConfiguration object. 
+		/// The default section where settings are read from the IConfiguration object.
 		/// This is set to "Flagscript.PiranhaCms.Aws.S3Storage".
 		/// </summary>
 		public const string DEFAULT_CONFIG_SECTION = "Flagscript.PiranhaCms.Aws.S3Storage";
@@ -64,9 +64,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 			{
 				options.KeyPrefix = section["KeyPrefix"];
 			}
-			if (!string.IsNullOrEmpty(section["UrlRoot"]))
+			if (!string.IsNullOrEmpty(section["PublicUrlRoot"]))
 			{
-				options.UrlRoot = section["UrlRoot"];
+				options.PublicUrlRoot = section["PublicUrlRoot"];
 			}
 
 			// Return options
