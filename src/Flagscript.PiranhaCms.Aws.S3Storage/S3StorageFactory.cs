@@ -63,7 +63,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 				var configuration = provider.GetService<IConfiguration>();
 				if (configuration != null)
 				{
-					s3StorageOptions = configuration.GetS3StorageOptions();
+					s3StorageOptions = configuration.GetPiranhaS3StorageOptions();
 					if (s3StorageOptions != null)
 					{
 						logger?.LogInformation("Found Piranha S3 Options in IConfiguration");

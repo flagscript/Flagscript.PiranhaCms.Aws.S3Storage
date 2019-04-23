@@ -70,9 +70,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 
 			// Service Provider
 			IServiceCollection services = new ServiceCollection();
-            services.AddS3StorageOptions(storageConfig);
+            services.AddPiranhaS3StorageOptions(storageConfig);
 			services.AddDefaultAWSOptions(configuration.GetAWSOptions());
-			services.AddS3Storage();
+			services.AddPiranhaS3Storage();
 			services.AddAWSService<IAmazonS3>();
 			var serviceProvider = services.BuildServiceProvider();
 

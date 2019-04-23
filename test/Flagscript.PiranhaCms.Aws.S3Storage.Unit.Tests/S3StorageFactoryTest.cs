@@ -93,7 +93,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
         {
 
             IServiceCollection services = new ServiceCollection();
-            services.AddS3StorageOptions(ValidStorageOptions);
+            services.AddPiranhaS3StorageOptions(ValidStorageOptions);
             var storageFactory = new S3StorageFactory(null, TestFixture.FakeAwsOptions);
             Func<IServiceProvider, object> factory = storageFactory.CreateS3Storage;
             services.Add(new ServiceDescriptor(typeof(S3Storage), factory, ServiceLifetime.Singleton));

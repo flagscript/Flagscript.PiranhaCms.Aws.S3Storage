@@ -18,7 +18,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <param name="services">The current service collection.</param>
 		/// <param name="options">A <see cref="PiranhaS3StorageOptions"/> used to configure <see cref="S3Storage"/>.</param>
 		/// <returns>Returns back the <see cref="IServiceCollection"/> to continue the fluent system of service configuration.</returns>
-		public static IServiceCollection AddS3StorageOptions(this IServiceCollection services, PiranhaS3StorageOptions options)
+		public static IServiceCollection AddPiranhaS3StorageOptions(this IServiceCollection services, PiranhaS3StorageOptions options)
 		{
 			services.Add(new ServiceDescriptor(typeof(PiranhaS3StorageOptions), options));
 			return services;
@@ -30,13 +30,13 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <param name="services">The current service collection.</param>
 		/// <param name="scope">The optional service scope. Default is singleton.</param>
 		/// <returns>Returns back the <see cref="IServiceCollection"/> to continue the fluent system of service configuration.</returns>
-		public static IServiceCollection AddS3Storage(
+		public static IServiceCollection AddPiranhaS3Storage(
 			this IServiceCollection services,
 			ServiceLifetime scope = ServiceLifetime.Singleton
 		)
 		{
 
-			return AddS3Storage(services, null, null, scope);
+			return AddPiranhaS3Storage(services, null, null, scope);
 
 		}
 
@@ -47,14 +47,14 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <param name="s3StorageOptions">Configuration items for <see cref="S3Storage"/>.</param>
 		/// <param name="scope">The optional service scope. Default is singleton.</param>
 		/// <returns>Returns back the <see cref="IServiceCollection"/> to continue the fluent system of service configuration.</returns>
-		public static IServiceCollection AddS3Storage(
+		public static IServiceCollection AdPiranhadS3Storage(
 			this IServiceCollection services,
 			PiranhaS3StorageOptions s3StorageOptions,
 			ServiceLifetime scope = ServiceLifetime.Singleton
 		)
 		{
 
-			return AddS3Storage(services, s3StorageOptions, null, scope);
+			return AddPiranhaS3Storage(services, s3StorageOptions, null, scope);
 
 		}
 
@@ -65,14 +65,14 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <param name="awsOptions">Configuration for the AWS S3 service client.</param>
 		/// <param name="scope">The optional service scope. Default is singleton.</param>
 		/// <returns>Returns back the <see cref="IServiceCollection"/> to continue the fluent system of service configuration.</returns>
-		public static IServiceCollection AddS3Storage(
+		public static IServiceCollection AddPiranhaS3Storage(
 			this IServiceCollection services,
 			AWSOptions awsOptions,
 			ServiceLifetime scope = ServiceLifetime.Singleton
 		)
 		{
 
-			return AddS3Storage(services, null, awsOptions, scope);
+			return AddPiranhaS3Storage(services, null, awsOptions, scope);
 
 		}
 
@@ -84,7 +84,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <param name="awsOptions">Configuration for the AWS S3 service client.</param>
 		/// <param name="scope">The optional service scope. Default is singleton.</param>
 		/// <returns>Returns back the <see cref="IServiceCollection"/> to continue the fluent system of service configuration.</returns>
-		public static IServiceCollection AddS3Storage(
+		public static IServiceCollection AddPiranhaS3Storage(
 			this IServiceCollection services,
 			PiranhaS3StorageOptions s3StorageOptions,
 			AWSOptions awsOptions,

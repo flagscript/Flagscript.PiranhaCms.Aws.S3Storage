@@ -55,7 +55,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		}
 
         /// <summary>
-        /// Ensures <see cref="PiranhaS3ServiceCollectionExtensions.AddS3StorageOptions(IServiceCollection, PiranhaS3StorageOptions)"/>
+        /// Ensures <see cref="PiranhaS3ServiceCollectionExtensions.AddPiranhaS3StorageOptions(IServiceCollection, PiranhaS3StorageOptions)"/>
         /// properly registers <see cref="PiranhaS3StorageOptions"/>.
         /// </summary>
         [Fact]
@@ -63,9 +63,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		{
 
 			var configuration = TestFixture.MainConfiguration;
-			var s3StorageOptions = configuration.GetS3StorageOptions();
+			var s3StorageOptions = configuration.GetPiranhaS3StorageOptions();
 			var services = new ServiceCollection();
-			services.AddS3StorageOptions(s3StorageOptions);
+			services.AddPiranhaS3StorageOptions(s3StorageOptions);
 			var serviceProvider = services.BuildServiceProvider();
 			var returnedOptions = serviceProvider.GetService<PiranhaS3StorageOptions>();
 			Assert.Same(s3StorageOptions, returnedOptions);
@@ -80,7 +80,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		{
 			var services = new ServiceCollection();
 
-			services.AddS3Storage(ValidStorageOptions, FakeAwsOptions);
+			services.AddPiranhaS3Storage(ValidStorageOptions, FakeAwsOptions);
 			IServiceProvider serviceProvider = services.BuildServiceProvider();
 
 			var storageProvider = serviceProvider.GetService<IStorage>();
