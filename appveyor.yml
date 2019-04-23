@@ -118,4 +118,4 @@ for:
     - master
   # Run Unit and Integration Tests
   test_script:
-    - dotnet test --configuration $CONFIGURATION --no-restore --no-build --test-adapter-path:. --logger:Appveyor
+    - dotnet test --configuration $CONFIGURATION --no-restore --no-build
