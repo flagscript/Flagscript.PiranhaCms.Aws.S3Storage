@@ -9,8 +9,6 @@
     <RepositoryUrl>https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Owners>Greg Kaestle, Flagscript</Owners>
-    <PackageProjectUrl>https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage/projects/1</PackageProjectUrl>
-    <PackageReleaseNotes>Alpha Release</PackageReleaseNotes>
     <Summary>Integration tests for Flagscript.Piranha.Aws.S3Storage</Summary>
   </PropertyGroup>
 
