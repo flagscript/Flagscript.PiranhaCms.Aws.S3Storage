@@ -7,7 +7,7 @@
     <Authors>Greg Kaestle, Flagscript</Authors>
     <Company>Flagscript</Company>
     <Copyright>©2019 Flagscript</Copyright>
-    <PackageIconUrl>https://github.com/flagscript/Flagscript/blob/master/flagscript-nuget.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/flagscript/Flagscript/master/flagscript-nuget.png</PackageIconUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage</RepositoryUrl>
