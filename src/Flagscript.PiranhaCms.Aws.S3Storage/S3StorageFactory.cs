@@ -53,7 +53,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		internal S3Storage CreateS3Storage(IServiceProvider provider)
 		{
 
-			var loggerFactory = provider.GetService<ILoggerFactory>();
+            var loggerFactory = provider.GetService<ILoggerFactory>();
 			var logger = loggerFactory?.CreateLogger("Flagscript.PiranhaCms.Aws.S3Storage");
 
 			// Obtain S3 Storage Options
@@ -68,10 +68,22 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 					{
 						logger?.LogInformation("Found Piranha S3 Options in IConfiguration");
 					}
+                    else
+                    {
+                        s3StorageOptions = new PiranhaS3StorageOptions();
+                    }
 				}
 			}
 
-			// Obtain Aws Options
+            // If storage configuration is still null, initialize an empty configuration
+            // for environment variable fallback.
+            if (s3StorageOptions == null)
+            {
+                s3StorageOptions = new PiranhaS3StorageOptions();
+            }
+
+
+            // Obtain Aws Options
 			var awsOptions = AwsOptions ?? provider.GetService<AWSOptions>();
 			if (awsOptions == null)
 			{
@@ -127,7 +139,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 
             // Obtain/Default S3StorageOptions KeyPrefix
             // Validate S3StorageOptions BucketName
-            if (string.IsNullOrWhiteSpace(finalS3StorateOptions.BucketName))
+            if (string.IsNullOrWhiteSpace(finalS3StorateOptions.KeyPrefix))
             {
 
                 finalS3StorateOptions.KeyPrefix = Environment.GetEnvironmentVariable(PiranhaS3StorageOptions.KeyPrefixEnvironmentVariable);
@@ -139,6 +151,12 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
                 else
                 {
                     logger?.LogInformation("Piranha S3 KeyPrefix found in environment variables");
+                }
+
+                // Default if not found
+                if (string.IsNullOrWhiteSpace(finalS3StorateOptions.KeyPrefix))
+                {
+                    finalS3StorateOptions.KeyPrefix = "uploads";
                 }
 
             }
@@ -161,13 +179,13 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
             }
 
             // Validate we have a valid public uri root. 
-            if (!Uri.IsWellFormedUriString(finalS3StorateOptions.PublicUrlRoot, UriKind.RelativeOrAbsolute))
+            if (!Uri.IsWellFormedUriString(finalS3StorateOptions.PublicUrlRoot, UriKind.Absolute))
             {
                 throw new FlagscriptException("Piranha S3 PublicUrlRoot is not a valid endpoint");
             }
 
             // Validate we have a valid public uri prefix. 
-            if (!Uri.IsWellFormedUriString(finalS3StorateOptions.PublicUrlPrefix, UriKind.RelativeOrAbsolute))
+            if (!Uri.IsWellFormedUriString(finalS3StorateOptions.PublicUrlPrefix, UriKind.Absolute))
             {
                 throw new FlagscriptException("Piranha S3 PublicUrlPrefix is not a valid endpoint");
             }

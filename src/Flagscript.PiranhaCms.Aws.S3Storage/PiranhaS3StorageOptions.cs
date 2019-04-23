@@ -17,17 +17,17 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <summary>
 		/// Fallback environment variable to pull <see cref="BucketName"/> from.
 		/// </summary>
-		public const string BucketEnvironmentVariable = EnvironmentVariablePrefix + "_BUCKET_NAME";
+		public const string BucketEnvironmentVariable = EnvironmentVariablePrefix + "BUCKET_NAME";
 
 		/// <summary>
 		/// Fallback environment variable to pull <see cref="KeyPrefix"/> from.
 		/// </summary>
-		public const string KeyPrefixEnvironmentVariable = EnvironmentVariablePrefix + "_KEY_PREFIX";
+		public const string KeyPrefixEnvironmentVariable = EnvironmentVariablePrefix + "KEY_PREFIX";
 
 		/// <summary>
 		/// Fallback environment variable to pull <see cref="UrlRoot"/> from.
 		/// </summary>
-		public const string UrlRootEnvironmentVariable = EnvironmentVariablePrefix + "_URL_ROOT";
+		public const string UrlRootEnvironmentVariable = EnvironmentVariablePrefix + "URL_ROOT";
 
         /// <summary>
         /// Default fallback value for <see cref="KeyPrefix"/>.

@@ -15,29 +15,50 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 	/// <summary>
 	/// Unit tests for <see cref="ServiceCollectionExtensions"/>.
 	/// </summary>
-	public class PiranhaS3ServiceCollectionExtensionsTest : IClassFixture<AppSettingsConfigurationFixture>
+	public class PiranhaS3ServiceCollectionExtensionsTest : IClassFixture<TestConfigurationFixture>
 	{
 
-		/// <summary>
-		/// The Test Fixture.
-		/// </summary>
-		/// <value>The Test Fixture.</value>
-		public AppSettingsConfigurationFixture TestFixture { get; private set; }
+        /// <summary>
+        /// Valid Storage Options used in tests.
+        /// </summary>
+        /// <value>Valid Storage Options used in tests.</value>
+        private static PiranhaS3StorageOptions ValidStorageOptions => new PiranhaS3StorageOptions
+        {
+            BucketName = ValidUnitTestBucketName,
+            KeyPrefix = ValidUnitTestKeyPrefix,
+            PublicUrlRoot = ValidUnitTestUriHost
+        };
+
+        /// <summary>
+        /// Fake <see cref="AWSOptions"/> used in tests.
+        /// </summary>
+        /// <value>Fake <see cref="AWSOptions"/> used in tests.</value>
+        private static AWSOptions FakeAwsOptions => new AWSOptions
+        {
+            Region = RegionEndpoint.USWest2,
+            Credentials = new BasicAWSCredentials("accessId", "secretKey")
+        };
+
+        /// <summary>
+        /// The Test Fixture.
+        /// </summary>
+        /// <value>The Test Fixture.</value>
+        public TestConfigurationFixture TestFixture { get; private set; }
 
 		/// <summary>
 		/// Constructor taking test fixture.
 		/// </summary>
 		/// <param name="testFixture">Test Fixture.</param>
-		public PiranhaS3ServiceCollectionExtensionsTest(AppSettingsConfigurationFixture testFixture)
+		public PiranhaS3ServiceCollectionExtensionsTest(TestConfigurationFixture testFixture)
 		{
 			TestFixture = testFixture;
 		}
 
-		/// <summary>
-		/// Ensures <see cref="PiranhaS3ServiceCollectionExtensions.AddS3StorageOptions(IServiceCollection, S3StorageOptions)"/>
-		/// properly registers <see cref="S3StorageOptions"/>.
-		/// </summary>
-		[Fact]
+        /// <summary>
+        /// Ensures <see cref="PiranhaS3ServiceCollectionExtensions.AddS3StorageOptions(IServiceCollection, PiranhaS3StorageOptions)"/>
+        /// properly registers <see cref="PiranhaS3StorageOptions"/>.
+        /// </summary>
+        [Fact]
 		public void TestAddS3StorageOptions()
 		{
 
@@ -46,37 +67,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			var services = new ServiceCollection();
 			services.AddS3StorageOptions(s3StorageOptions);
 			var serviceProvider = services.BuildServiceProvider();
-			var returnedOptions = serviceProvider.GetService<S3StorageOptions>();
+			var returnedOptions = serviceProvider.GetService<PiranhaS3StorageOptions>();
 			Assert.Same(s3StorageOptions, returnedOptions);
 
-			// Quick null test
-			services = new ServiceCollection();
-			services.AddS3StorageOptions(null);
-			serviceProvider = services.BuildServiceProvider();
-			returnedOptions = serviceProvider.GetService<S3StorageOptions>();
-			Assert.Null(returnedOptions);
-
-		}
-
-		/// <summary>
-		/// Ensures service can not be registered with null configuration.
-		/// </summary>
-		[Fact]
-		public void TestAddS3StorageNullConfiguration()
-		{
-			var services = new ServiceCollection();			
-
-			try
-			{
-				services.AddS3Storage(null);
-				var provider = services.BuildServiceProvider();
-				var s3Storage = provider.GetService<IStorage>();
-				Assert.True(false, "null storageConfiguration passed to service provider and no exception");
-			}
-			catch (ArgumentNullException ane)
-			{
-				Assert.Equal("storageConfiguration", ane.ParamName);
-			}
 		}
 
 		/// <summary>
@@ -87,19 +80,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		{
 			var services = new ServiceCollection();
 
-			var fakeAwsOptions = new AWSOptions
-			{
-				Region = RegionEndpoint.USWest2,
-				Credentials = new BasicAWSCredentials("accessId", "secretKey")
-			};
-
-			var s3StorageConfiguration = new S3StorageConfiguration(
-				ValidUnitTestBucketName,
-				ValidUnitTestUriHost,
-				awsOptions: fakeAwsOptions
-			);
-
-			services.AddS3Storage(s3StorageConfiguration);
+			services.AddS3Storage(ValidStorageOptions, FakeAwsOptions);
 			IServiceProvider serviceProvider = services.BuildServiceProvider();
 
 			var storageProvider = serviceProvider.GetService<IStorage>();

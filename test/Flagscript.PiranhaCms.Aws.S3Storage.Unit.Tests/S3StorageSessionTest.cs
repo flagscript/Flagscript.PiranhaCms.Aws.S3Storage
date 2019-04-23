@@ -25,20 +25,34 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 	/// Unfortunately - there is currently an error downloading Moq Nuget.
 	/// This will have to be postponed.
 	/// </remarks>
-	public class S3StorageSessionTest
-	{
+	public class S3StorageSessionTest : IClassFixture<TestConfigurationFixture>
+    {
 
-		static AWSOptions fakeAwsOptions = new AWSOptions
-		{
-			Region = RegionEndpoint.USWest2,
-			Credentials = new BasicAWSCredentials("accessId", "secretKey")
-		};
+        /// <summary>
+        /// The Test Fixture.
+        /// </summary>
+        /// <value>The Test Fixture.</value>
+        public TestConfigurationFixture TestFixture { get; private set; }
 
-		static S3StorageConfiguration s3StorageConfiguration = new S3StorageConfiguration(
-			ValidUnitTestBucketName,
-			ValidUnitTestUriHost,
-			awsOptions: fakeAwsOptions
-		);
+        /// <summary>
+        /// Constructor taking test fixture.
+        /// </summary>
+        /// <param name="testFixture">Test Fixture.</param>
+        public S3StorageSessionTest(TestConfigurationFixture testFixture)
+        {
+            TestFixture = testFixture;
+        }
+
+        /// <summary>
+        /// Valid Storage Options used in tests.
+        /// </summary>
+        /// <value>Valid Storage Options used in tests.</value>
+        private static PiranhaS3StorageOptions ValidStorageOptions => new PiranhaS3StorageOptions
+        {
+            BucketName = ValidUnitTestBucketName,
+            KeyPrefix = "uploads",
+            PublicUrlRoot = ValidUnitTestUriHost
+        };
 
         /// <summary>
         /// Validate exception on null configuration.
@@ -48,12 +62,12 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
         {
             try
             {
-                var storageSesstion = new S3StorageSession(null);
+                var storageSesstion = new S3StorageSession(null, null, null);
                 Assert.True(false, "S3StorageSession with null cTor args did not exception");
             }
             catch (ArgumentNullException ane)
             {
-                Assert.Equal("configuration", ane.ParamName);
+                Assert.Equal("storageOptions", ane.ParamName);
             }
         }
 
@@ -63,12 +77,12 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		[Fact]
 		public async Task TestDeleteAsync()
 		{
-			S3StorageSession storageSession = new S3StorageSession(s3StorageConfiguration);
+			S3StorageSession storageSession = new S3StorageSession(ValidStorageOptions, null, null);
 
 			// Moq client
 			var mock = new Mock<IAmazonS3>();
             mock
-                .Setup(foo => foo.DeleteObjectAsync(s3StorageConfiguration.BucketName, s3StorageConfiguration.KeyPrefix, default(CancellationToken)))
+                .Setup(foo => foo.DeleteObjectAsync(ValidStorageOptions.BucketName, ValidStorageOptions.KeyPrefix, default(CancellationToken)))
                 .ReturnsAsync(new DeleteObjectResponse());
 			storageSession.S3Client = mock.Object;
 
@@ -96,9 +110,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
         [Fact]
         public async void TestGetAsync()
         {
-            S3StorageSession storageSession = new S3StorageSession(s3StorageConfiguration);
+            S3StorageSession storageSession = new S3StorageSession(ValidStorageOptions, null, null);
             var testId = Guid.NewGuid().ToString();
-            var objectKey = Url.Combine(s3StorageConfiguration.KeyPrefix, testId);
+            var objectKey = Url.Combine(ValidStorageOptions.KeyPrefix, testId);
 
             // Moq client
             var mock = new Mock<IAmazonS3>();
@@ -125,7 +139,12 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
         [Fact]
         public async Task TestPutAsyncStream()
         {
-            S3StorageSession storageSession = new S3StorageSession(s3StorageConfiguration);
+
+            var storageSession = new S3StorageSession(
+                ValidStorageOptions,
+                TestFixture.FakeAwsOptions,
+                null
+            );
 
             // Moq client
             var mock = new Mock<IAmazonS3>();
@@ -151,7 +170,12 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
         [Fact]
         public async Task TestPutAsyncByteArray()
         {
-            S3StorageSession storageSession = new S3StorageSession(s3StorageConfiguration);
+
+            var storageSession = new S3StorageSession(
+                ValidStorageOptions, 
+                TestFixture.FakeAwsOptions, 
+                null
+            );
 
             // Moq client
             var mock = new Mock<IAmazonS3>();

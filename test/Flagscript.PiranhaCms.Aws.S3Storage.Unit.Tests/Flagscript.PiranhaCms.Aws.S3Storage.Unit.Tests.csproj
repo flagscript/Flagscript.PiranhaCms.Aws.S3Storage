@@ -24,12 +24,11 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.0" />
     <PackageReference Include="Appveyor.TestLogger" Version="2.0.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Flagscript.PiranhaCms.Aws.S3Storage\Flagscript.PiranhaCms.Aws.S3Storage.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="appsettings.root" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Flagscript.PiranhaCms.Aws.S3Storage\Flagscript.PiranhaCms.Aws.S3Storage.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
