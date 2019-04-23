@@ -62,7 +62,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
         {
             try
             {
-                var storageSesstion = new S3StorageSession(null, null, null);
+                new S3StorageSession(null, null, null);
                 Assert.True(false, "S3StorageSession with null cTor args did not exception");
             }
             catch (ArgumentNullException ane)

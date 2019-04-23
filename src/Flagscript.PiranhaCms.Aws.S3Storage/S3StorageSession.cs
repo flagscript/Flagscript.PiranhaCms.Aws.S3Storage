@@ -149,7 +149,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		{
 			using (var memoryStream = new MemoryStream(bytes))
 			{
-				return await PutAsync(id, contentType, memoryStream);
+				return await PutAsync(id, contentType, memoryStream).ConfigureAwait(false); ;
 			}
 		}
 

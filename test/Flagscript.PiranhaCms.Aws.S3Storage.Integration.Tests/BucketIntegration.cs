@@ -109,7 +109,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 			}
 
 			// Try to delete it. If not - no biggie - int bucket lifecycle will.
-			await DeleteObject(objectId);
+			await DeleteObject(objectId).ConfigureAwait(false);
 
 		}
 
@@ -183,7 +183,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 			}
 			catch
 			{
-				Console.WriteLine($"Failed to delete integration object {delRequest.Key}");
+                Assert.False(true, "Exception deleting integration object.");
 			}
 
 		}
