@@ -18,20 +18,31 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 	public class S3StorageTest
 	{
 
-		/// <summary>
-		/// Valdiates exception on creation with no configuration object.
-		/// </summary>
-		[Fact]
+        /// <summary>
+        /// Valid Storage Options used in tests.
+        /// </summary>
+        /// <value>Valid Storage Options used in tests.</value>
+        private static PiranhaS3StorageOptions ValidStorageOptions => new PiranhaS3StorageOptions
+        {
+            BucketName = ValidUnitTestBucketName,
+            KeyPrefix = ValidUnitTestKeyPrefix,
+            PublicUrlRoot = ValidUnitTestUriHost
+        };
+
+        /// <summary>
+        /// Valdiates exception on creation with no configuration object.
+        /// </summary>
+        [Fact]
 		public void TestCtor()
 		{
 			try
 			{
-				S3Storage s3Storage = new S3Storage(null);
-				Assert.True(false, "null configuration did not throw ArgumentNullException");
+				S3Storage s3Storage = new S3Storage(null, null, null);
+				Assert.True(false, "null storageOptions did not throw ArgumentNullException");
 			}
 			catch (ArgumentNullException ane)
 			{
-				Assert.Equal("configuration", ane.ParamName);
+				Assert.Equal("storageOptions", ane.ParamName);
 			}
 		}
 
@@ -41,14 +52,14 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		[Fact]
 		public async Task ValidateOpenAsync()
 		{
-			// Validate with passed in fake AwsOptions
-			var s3StorageConfiguration = new S3StorageConfiguration(
-				ValidUnitTestBucketName,
-				ValidUnitTestUriHost,
-				keyPrefix: ValidUnitTestKeyPrefix,
-				awsOptions: new AWSOptions { Region = RegionEndpoint.USWest2, Credentials = new BasicAWSCredentials("accessId", "secretKey") }
-			);
-			var s3Storage = new S3Storage(s3StorageConfiguration);
+            // Validate with passed in fake AwsOptions
+            var awsOptions = new AWSOptions
+            {
+                Region = RegionEndpoint.USWest2,
+                Credentials = new BasicAWSCredentials("accessId", "secretKey")
+            };
+
+            var s3Storage = new S3Storage(ValidStorageOptions, awsOptions, null);
 
 			using (var s3StorageSession = await s3Storage.OpenAsync())
 			{
@@ -63,12 +74,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 				Environment.SetEnvironmentVariable("AWS_SECRET_KEY", "secretKey");
 				Environment.SetEnvironmentVariable("AWS_REGION", "us-west-2");
 
-				var s3StorageConfigurationNoCred = new S3StorageConfiguration(
-					ValidUnitTestBucketName,
-					ValidUnitTestUriHost,
-					keyPrefix: ValidUnitTestKeyPrefix
-				);
-				var s3StorageNoCreds = new S3Storage(s3StorageConfigurationNoCred);
+				var s3StorageNoCreds = new S3Storage(ValidStorageOptions, null, null);
 
 				using (var s3StorageSessionNoCreds = await s3StorageNoCreds.OpenAsync())
 				{
@@ -90,12 +96,13 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		[Fact]
 		public void ValidateGetPublicUrl()
 		{
-			S3StorageConfiguration s3StorageConfiguration = new S3StorageConfiguration(
-				ValidUnitTestBucketName,
-				ValidUnitTestUriHost,
-				keyPrefix: ValidUnitTestKeyPrefix
-			);
-			S3Storage s3Storage = new S3Storage(s3StorageConfiguration);
+			var storageConfiguration = new PiranhaS3StorageOptions
+            {
+                BucketName = ValidUnitTestBucketName,
+                KeyPrefix = ValidUnitTestKeyPrefix,
+                PublicUrlRoot = ValidUnitTestUriHost
+            };
+			S3Storage s3Storage = new S3Storage(storageConfiguration, null, null);
 
 			// Test null id input
 			var returnUri = s3Storage.GetPublicUrl(null);

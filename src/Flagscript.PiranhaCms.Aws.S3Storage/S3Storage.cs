@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using Microsoft.Extensions.Logging;
+
+using Amazon.Extensions.NETCore.Setup;
 using Flurl;
 using Piranha;
 
@@ -17,15 +20,36 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 	public class S3Storage : IStorage
 	{
 
-		/// <summary>
-		/// Configuration for <see cref="S3Storage"/>.
-		/// </summary>
-		internal readonly S3StorageConfiguration _configuration;
+        /// <summary>
+        /// Configuration options for <see cref="S3Storage"/>.
+        /// </summary>
+        /// <value>Configuration options for <see cref="S3Storage"/>.</value>
+        internal PiranhaS3StorageOptions StorageOptions { get; private set; }
 
-		public S3Storage(S3StorageConfiguration configuration)
+        /// <summary>
+        /// Configuration options for the Amazon S3 Client.
+        /// </summary>
+        /// <value>Configuration options for the Amazon S3 Client.</value>
+        internal AWSOptions AwsOptions { get; private set; }
+
+        /// <summary>
+        /// Namespace <see cref="ILogger"/> used for logging.
+        /// </summary>
+        /// <value>Namespace <see cref="ILogger"/> used for logging.</value>
+        internal ILogger Logger { get; private set; }
+
+        /// <summary>
+        /// Creates a new <see cref="S3Storage"/> with a specified configuration.
+        /// </summary>
+		/// <param name="storageOptions"><see cref="S3StorageOptions"/> used to configure the Piranda S3 storage.</param>
+		/// <param name="awsOptions">The <see cref="AWSOptions"/> used to create the S3 service client.</param>
+        /// <param name="logger">Namespace <see cref="ILogger"/> used for logging.</param>
+		internal S3Storage(PiranhaS3StorageOptions storageOptions, AWSOptions awsOptions, ILogger logger)
 		{
-			_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-		}
+            StorageOptions = storageOptions ?? throw new ArgumentNullException(nameof(storageOptions));
+            AwsOptions = awsOptions;
+
+        }
 
 		/// <summary>
 		/// Opens a new storage session.
@@ -33,7 +57,8 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <returns>A new open session</returns>
 		public Task<IStorageSession> OpenAsync()
 		{
-			return Task.FromResult<IStorageSession>(new S3StorageSession(_configuration));
+            Logger?.LogDebug("Opening Piranha S3 media storage session");
+			return Task.FromResult<IStorageSession>(new S3StorageSession(StorageOptions, AwsOptions, Logger));
 		}
 
 		/// <summary>
@@ -45,7 +70,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		{
 			if (!string.IsNullOrWhiteSpace(id))
 			{
-				return Url.Combine(_configuration.PublicUrlPrefix, id);
+				return Url.Combine(StorageOptions.PublicUrlPrefix, id);
 			}
 			return null;
 		}
