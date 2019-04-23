@@ -263,7 +263,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
                 services.Add(new ServiceDescriptor(typeof(S3Storage), factory, ServiceLifetime.Singleton));
                 var serviceProvider = services.BuildServiceProvider();
 
-                var s3Storage = serviceProvider.GetService<S3Storage>();
+                serviceProvider.GetService<S3Storage>();
                 Assert.False(true, "No PublicUrlRoot did not throw an exception");
 
             }

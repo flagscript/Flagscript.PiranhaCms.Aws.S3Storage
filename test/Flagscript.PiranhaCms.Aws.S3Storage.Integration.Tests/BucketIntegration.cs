@@ -160,7 +160,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 			Assert.Equal("hi", text);
 
 			// Try to delete it. If not - no biggie - int bucket lifecycle will.
-			await DeleteObject(objectId);
+			await DeleteObject(objectId).ConfigureAwait(false);
 
 		}
 

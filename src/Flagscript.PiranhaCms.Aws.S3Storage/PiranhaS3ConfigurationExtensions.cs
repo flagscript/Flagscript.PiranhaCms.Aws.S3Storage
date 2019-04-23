@@ -14,7 +14,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// The default section where settings are read from the IConfiguration object.
 		/// This is set to "Flagscript.PiranhaCms.Aws.S3Storage".
 		/// </summary>
-		public const string DEFAULT_CONFIG_SECTION = "Flagscript.PiranhaCms.Aws.S3Storage";
+		public static readonly string DEFAULT_CONFIG_SECTION = "Flagscript.PiranhaCms.Aws.S3Storage";
 
 		/// <summary>
 		/// Constructs an <see cref="PiranhaS3StorageOptions"/> class with the options 
