@@ -46,10 +46,10 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
         /// <param name="logger">Namespace <see cref="ILogger"/> used for logging.</param>
 		internal S3Storage(PiranhaS3StorageOptions storageOptions, AWSOptions awsOptions, ILogger logger)
 		{
-            StorageOptions = storageOptions ?? throw new ArgumentNullException(nameof(storageOptions));
-            AwsOptions = awsOptions;
+			StorageOptions = storageOptions ?? throw new ArgumentNullException(nameof(storageOptions));
+			AwsOptions = awsOptions;
 
-        }
+		}
 
 		/// <summary>
 		/// Opens a new storage session.
@@ -57,7 +57,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <returns>A new open session</returns>
 		public Task<IStorageSession> OpenAsync()
 		{
-            Logger?.LogDebug("Opening Piranha S3 media storage session");
+			Logger?.LogDebug("Opening Piranha S3 media storage session");
 			return Task.FromResult<IStorageSession>(new S3StorageSession(StorageOptions, AwsOptions, Logger));
 		}
 

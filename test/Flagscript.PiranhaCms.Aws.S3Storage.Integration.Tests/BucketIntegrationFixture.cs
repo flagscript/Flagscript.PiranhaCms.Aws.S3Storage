@@ -46,31 +46,31 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 		/// <value>Amazon S3 client used for validation.</value>
 		public IAmazonS3 S3Client { get; private set; }
 
-        /// <summary>
-        /// Contructor initializing test fixture.
-        /// </summary>
-        public BucketIntegrationFixture()
-        {
+		/// <summary>
+		/// Contructor initializing test fixture.
+		/// </summary>
+		public BucketIntegrationFixture()
+		{
 
-            // Setup Configuration
-            var configBuilder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false);
-            var configuration = configBuilder.Build();
+			// Setup Configuration
+			var configBuilder = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json", optional: false);
+			var configuration = configBuilder.Build();
 
-            AWSOptions options = configuration.GetAWSOptions();
+			AWSOptions options = configuration.GetAWSOptions();
 
-            // S3 Configuration
-            BucketName = Environment.GetEnvironmentVariable("BUCKET_NAME");
-            BucketWebsite = $"http://{BucketName}.s3-website.{options.Region.SystemName}.amazonaws.com/";
+			// S3 Configuration
+			BucketName = Environment.GetEnvironmentVariable("BUCKET_NAME");
+			BucketWebsite = $"http://{BucketName}.s3-website.{options.Region.SystemName}.amazonaws.com/";
 
-            var storageConfig = new PiranhaS3StorageOptions {
-                BucketName = BucketName,
-                PublicUrlRoot = BucketWebsite
-            };
+			var storageConfig = new PiranhaS3StorageOptions {
+				BucketName = BucketName,
+				PublicUrlRoot = BucketWebsite
+			};
 
 			// Service Provider
 			IServiceCollection services = new ServiceCollection();
-            services.AddPiranhaS3StorageOptions(storageConfig);
+			services.AddPiranhaS3StorageOptions(storageConfig);
 			services.AddDefaultAWSOptions(configuration.GetAWSOptions());
 			services.AddPiranhaS3Storage();
 			services.AddAWSService<IAmazonS3>();

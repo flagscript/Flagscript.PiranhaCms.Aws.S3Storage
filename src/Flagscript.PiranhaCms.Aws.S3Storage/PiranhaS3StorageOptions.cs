@@ -29,10 +29,10 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// </summary>
 		public static readonly string UrlRootEnvironmentVariable = EnvironmentVariablePrefix + "URL_ROOT";
 
-        /// <summary>
-        /// Default fallback value for <see cref="KeyPrefix"/>.
-        /// </summary>
-        public static readonly string KeyPrefixDefault = "uploads";
+		/// <summary>
+		/// Default fallback value for <see cref="KeyPrefix"/>.
+		/// </summary>
+		public static readonly string KeyPrefixDefault = "uploads";
 
 		/// <summary>
 		/// Name of the S3 bucket where media files will be stored.
@@ -53,11 +53,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <value>The scheme/host portion of the uri used to serve the media files.</value>
 		public string PublicUrlRoot { get; set; }
 
-        /// <summary>
-        /// The absolute public URL prefix to Piranha S3 Media Files.
-        /// </summary>
-        /// <value>The absolute public URL prefix to Piranha S3 Media Files.</value>
-        public string PublicUrlPrefix => Url.Combine(PublicUrlRoot, KeyPrefix);
+		/// <summary>
+		/// The absolute public URL prefix to Piranha S3 Media Files.
+		/// </summary>
+		/// <value>The absolute public URL prefix to Piranha S3 Media Files.</value>
+		public string PublicUrlPrefix => Url.Combine(PublicUrlRoot, KeyPrefix);
 
 	}
 

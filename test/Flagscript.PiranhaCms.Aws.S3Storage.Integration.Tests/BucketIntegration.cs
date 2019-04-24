@@ -18,7 +18,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 	/// package.
 	/// </summary>
 	public class BucketIntegration : IClassFixture<BucketIntegrationFixture>
-    {
+	{
 
 		/// <summary>
 		/// The Test Fixture.
@@ -116,9 +116,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 		/// <summary>
 		/// Integration test for <see cref="IStorageSession.PutAsync(string, string, byte[])"/>
 		/// </summary>
-        [Fact]
-        public async Task TestPutAsyncBytes()
-        {
+		[Fact]
+		public async Task TestPutAsyncBytes()
+		{
 
 			string putUrl;
 			var objectId = Guid.NewGuid().ToString();
@@ -183,7 +183,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 			}
 			catch
 			{
-                Assert.False(true, "Exception deleting integration object.");
+				Assert.False(true, "Exception deleting integration object.");
 			}
 
 		}

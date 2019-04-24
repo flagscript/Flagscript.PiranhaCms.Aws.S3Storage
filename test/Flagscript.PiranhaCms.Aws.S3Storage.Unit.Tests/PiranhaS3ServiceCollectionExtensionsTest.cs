@@ -18,32 +18,23 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 	public class PiranhaS3ServiceCollectionExtensionsTest : IClassFixture<TestConfigurationFixture>
 	{
 
-        /// <summary>
-        /// Valid Storage Options used in tests.
-        /// </summary>
-        /// <value>Valid Storage Options used in tests.</value>
-        private static PiranhaS3StorageOptions ValidStorageOptions => new PiranhaS3StorageOptions
-        {
-            BucketName = ValidUnitTestBucketName,
-            KeyPrefix = ValidUnitTestKeyPrefix,
-            PublicUrlRoot = ValidUnitTestUriHost
-        };
+		/// <summary>
+		/// Valid Storage Options used in tests.
+		/// </summary>
+		/// <value>Valid Storage Options used in tests.</value>
+		private static PiranhaS3StorageOptions ValidStorageOptions => new PiranhaS3StorageOptions
+		{
+			BucketName = ValidUnitTestBucketName,
+			KeyPrefix = ValidUnitTestKeyPrefix,
+			PublicUrlRoot = ValidUnitTestUriHost
+		};
+        
 
-        /// <summary>
-        /// Fake <see cref="AWSOptions"/> used in tests.
-        /// </summary>
-        /// <value>Fake <see cref="AWSOptions"/> used in tests.</value>
-        private static AWSOptions FakeAwsOptions => new AWSOptions
-        {
-            Region = RegionEndpoint.USWest2,
-            Credentials = new BasicAWSCredentials("accessId", "secretKey")
-        };
-
-        /// <summary>
-        /// The Test Fixture.
-        /// </summary>
-        /// <value>The Test Fixture.</value>
-        public TestConfigurationFixture TestFixture { get; private set; }
+		/// <summary>
+		/// The Test Fixture.
+		/// </summary>
+		/// <value>The Test Fixture.</value>
+		public TestConfigurationFixture TestFixture { get; private set; }
 
 		/// <summary>
 		/// Constructor taking test fixture.
@@ -54,11 +45,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			TestFixture = testFixture;
 		}
 
-        /// <summary>
-        /// Ensures <see cref="PiranhaS3ServiceCollectionExtensions.AddPiranhaS3StorageOptions(IServiceCollection, PiranhaS3StorageOptions)"/>
-        /// properly registers <see cref="PiranhaS3StorageOptions"/>.
-        /// </summary>
-        [Fact]
+		/// <summary>
+		/// Ensures <see cref="PiranhaS3ServiceCollectionExtensions.AddPiranhaS3StorageOptions(IServiceCollection, PiranhaS3StorageOptions)"/>
+		/// properly registers <see cref="PiranhaS3StorageOptions"/>.
+		/// </summary>
+		[Fact]
 		public void TestAddS3StorageOptions()
 		{
 
@@ -80,7 +71,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		{
 			var services = new ServiceCollection();
 
-			services.AddPiranhaS3Storage(ValidStorageOptions, FakeAwsOptions);
+			services.AddPiranhaS3Storage(ValidStorageOptions, TestFixture.FakeAwsOptions);
 			IServiceProvider serviceProvider = services.BuildServiceProvider();
 
 			var storageProvider = serviceProvider.GetService<IStorage>();

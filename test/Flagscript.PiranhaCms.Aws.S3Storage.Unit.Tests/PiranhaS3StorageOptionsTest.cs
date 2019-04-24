@@ -30,11 +30,12 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
         {
             var storageOptions = new PiranhaS3StorageOptions
             {
-                PublicUrlRoot = "https://deckers.com",
+                PublicUrlRoot = "https://flagscript.technology",
                 KeyPrefix = "uploads"
             };
-            Assert.Equal("https://deckers.com/uploads", storageOptions.PublicUrlPrefix);
+            Assert.Equal("https://flagscript.technology/uploads", storageOptions.PublicUrlPrefix);
         }
 
     }
+
 }

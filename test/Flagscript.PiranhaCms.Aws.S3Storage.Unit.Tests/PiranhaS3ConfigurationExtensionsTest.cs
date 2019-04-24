@@ -34,16 +34,16 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			Assert.Equal("Flagscript.PiranhaCms.Aws.S3Storage", PiranhaS3ConfigurationExtensions.DEFAULT_CONFIG_SECTION);
 		}
 
-        /// <summary>
-        /// Unit tests for <see cref="PiranhaS3ConfigurationExtensions.GetPiranhaS3StorageOptions(Microsoft.Extensions.Configuration.IConfiguration)"/>.
-        /// </summary>
-        [Fact]
+		/// <summary>
+		/// Unit tests for <see cref="PiranhaS3ConfigurationExtensions.GetPiranhaS3StorageOptions(Microsoft.Extensions.Configuration.IConfiguration)"/>.
+		/// </summary>
+		[Fact]
 		public void TestGetS3StorageOptions()
 		{
 
 			// Valid Config
 			var s3StorageOptions = TestFixture.MainConfiguration.GetPiranhaS3StorageOptions();
-            ValidateS3StorageOptions(s3StorageOptions);
+			ValidateS3StorageOptions(s3StorageOptions);
 
 			// Root Config
 			s3StorageOptions = TestFixture.RootConfiguration.GetPiranhaS3StorageOptions();
@@ -55,11 +55,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 
 		}
 
-        /// <summary>
-        /// Unit tests for <see cref="PiranhaS3ConfigurationExtensions.GetPiranhaS3StorageOptions(Microsoft.Extensions.Configuration.IConfiguration, string)"/>
-        /// when the configuration section name is <c>null</c> or <c>string.Empty</c>.
-        /// </summary>
-        [Theory]
+		/// <summary>
+		/// Unit tests for <see cref="PiranhaS3ConfigurationExtensions.GetPiranhaS3StorageOptions(Microsoft.Extensions.Configuration.IConfiguration, string)"/>
+		/// when the configuration section name is <c>null</c> or <c>string.Empty</c>.
+		/// </summary>
+		[Theory]
 		[InlineData(null)]
 		[InlineData("")]
 		public void TestGetS3StorageOptionsEmptyName(string emptyConfigName)
@@ -75,11 +75,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 
 		}
 
-        /// <summary>
-        /// Unit tests for <see cref="PiranhaS3ConfigurationExtensions.GetPiranhaS3StorageOptions(Microsoft.Extensions.Configuration.IConfiguration, string)"/>
-        /// when the configuration section name is not found.
-        /// </summary>
-        [Fact]
+		/// <summary>
+		/// Unit tests for <see cref="PiranhaS3ConfigurationExtensions.GetPiranhaS3StorageOptions(Microsoft.Extensions.Configuration.IConfiguration, string)"/>
+		/// when the configuration section name is not found.
+		/// </summary>
+		[Fact]
 		public void TestGetS3StorageOptionsUnknownSection()
 		{
 		
@@ -97,11 +97,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 
 		}
 
-        /// <summary>
-        /// Unit tests for <see cref="PiranhaS3ConfigurationExtensions.GetPiranhaS3StorageOptions(Microsoft.Extensions.Configuration.IConfiguration, string)"/>
-        /// when the configuration section name is known.
-        /// </summary>
-        [Fact]
+		/// <summary>
+		/// Unit tests for <see cref="PiranhaS3ConfigurationExtensions.GetPiranhaS3StorageOptions(Microsoft.Extensions.Configuration.IConfiguration, string)"/>
+		/// when the configuration section name is known.
+		/// </summary>
+		[Fact]
 		public void TestGetS3StorageOptionsKnownSection()
 		{
 
@@ -119,11 +119,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 
 		}
 
-        /// <summary>
-        /// Validates <see cref="PiranhaS3StorageOptions"/> has the expected test values.
-        /// </summary>
-        /// <param name="options">The <see cref="S3StorageOptions"/> to test.</param>
-        private void ValidateS3StorageOptions(PiranhaS3StorageOptions options)
+		/// <summary>
+		/// Validates <see cref="PiranhaS3StorageOptions"/> has the expected test values.
+		/// </summary>
+		/// <param name="options">The <see cref="S3StorageOptions"/> to test.</param>
+		private void ValidateS3StorageOptions(PiranhaS3StorageOptions options)
 		{
 			Assert.NotNull(options);
 			Assert.Equal("BucketNameTest", options.BucketName);
@@ -131,12 +131,12 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			Assert.Equal("http://flagscript.technology", options.PublicUrlRoot);
 		}
 
-        /// <summary>
-        /// Validates <see cref="PiranhaS3StorageOptions"/> has the expected test values when
-        /// not found.
-        /// </summary>
-        /// <param name="options">The <see cref="PiranhaS3StorageOptions"/> to test.</param>
-        private void ValidateNullS3StorageOptions(PiranhaS3StorageOptions options)
+		/// <summary>
+		/// Validates <see cref="PiranhaS3StorageOptions"/> has the expected test values when
+		/// not found.
+		/// </summary>
+		/// <param name="options">The <see cref="PiranhaS3StorageOptions"/> to test.</param>
+		private void ValidateNullS3StorageOptions(PiranhaS3StorageOptions options)
 		{
 			Assert.NotNull(options);
 			Assert.Null(options.BucketName);

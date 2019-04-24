@@ -13,17 +13,17 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 	public class TestConfigurationFixture
 	{
 
-        /// <summary>
-        /// Fake <see cref="AWSOptions"/> to use for testing.
-        /// </summary>
-        /// <value>The appsettings.json configuration.</value>
+		/// <summary>
+		/// Fake <see cref="AWSOptions"/> to use for testing.
+		/// </summary>
+		/// <value>The appsettings.json configuration.</value>
 		public AWSOptions FakeAwsOptions { get; set; }
 
-        /// <summary>
-        /// Configuration from appsettings.json.
-        /// </summary>
-        /// <value>The appsettings.json configuration.</value>
-        public IConfiguration MainConfiguration { get; private set; }
+		/// <summary>
+		/// Configuration from appsettings.json.
+		/// </summary>
+		/// <value>The appsettings.json configuration.</value>
+		public IConfiguration MainConfiguration { get; private set; }
 
 		/// <summary>
 		/// Configuration from appsettings.root.json.
@@ -43,15 +43,15 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		public TestConfigurationFixture()
 		{
 
-            // Fake AWS Options
-            FakeAwsOptions = new AWSOptions
-            {
-                Region = RegionEndpoint.USWest2,
-                Credentials = new BasicAWSCredentials("accessId", "secretKey")
-            };
+			// Fake AWS Options
+			FakeAwsOptions = new AWSOptions
+			{
+				Region = RegionEndpoint.USWest2,
+				Credentials = new BasicAWSCredentials("accessId", "secretKey")
+			};
 
-            // Main Configuration
-            var configBuilder = new ConfigurationBuilder()
+			// Main Configuration
+			var configBuilder = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json", optional: false);
 			MainConfiguration = configBuilder.Build();
 
