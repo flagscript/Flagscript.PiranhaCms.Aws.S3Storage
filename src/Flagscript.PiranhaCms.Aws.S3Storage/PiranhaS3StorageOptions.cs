@@ -12,27 +12,27 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <summary>
 		/// Standard prefix for fallback environment variables.
 		/// </summary>
-		private const string EnvironmentVariablePrefix = "PIRANHA_S3_";
+		private static readonly string EnvironmentVariablePrefix = "PIRANHA_S3_";
 
 		/// <summary>
 		/// Fallback environment variable to pull <see cref="BucketName"/> from.
 		/// </summary>
-		public const string BucketEnvironmentVariable = EnvironmentVariablePrefix + "BUCKET_NAME";
+		public static readonly string BucketEnvironmentVariable = EnvironmentVariablePrefix + "BUCKET_NAME";
 
 		/// <summary>
 		/// Fallback environment variable to pull <see cref="KeyPrefix"/> from.
 		/// </summary>
-		public const string KeyPrefixEnvironmentVariable = EnvironmentVariablePrefix + "KEY_PREFIX";
+		public static readonly string KeyPrefixEnvironmentVariable = EnvironmentVariablePrefix + "KEY_PREFIX";
 
 		/// <summary>
 		/// Fallback environment variable to pull <see cref="UrlRoot"/> from.
 		/// </summary>
-		public const string UrlRootEnvironmentVariable = EnvironmentVariablePrefix + "URL_ROOT";
+		public static readonly string UrlRootEnvironmentVariable = EnvironmentVariablePrefix + "URL_ROOT";
 
-        /// <summary>
-        /// Default fallback value for <see cref="KeyPrefix"/>.
-        /// </summary>
-        public const string KeyPrefixDefault = "uploads";
+		/// <summary>
+		/// Default fallback value for <see cref="KeyPrefix"/>.
+		/// </summary>
+		public static readonly string KeyPrefixDefault = "uploads";
 
 		/// <summary>
 		/// Name of the S3 bucket where media files will be stored.
@@ -53,11 +53,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <value>The scheme/host portion of the uri used to serve the media files.</value>
 		public string PublicUrlRoot { get; set; }
 
-        /// <summary>
-        /// The absolute public URL prefix to Piranha S3 Media Files.
-        /// </summary>
-        /// <value>The absolute public URL prefix to Piranha S3 Media Files.</value>
-        public string PublicUrlPrefix => Url.Combine(PublicUrlRoot, KeyPrefix);
+		/// <summary>
+		/// The absolute public URL prefix to Piranha S3 Media Files.
+		/// </summary>
+		/// <value>The absolute public URL prefix to Piranha S3 Media Files.</value>
+		public string PublicUrlPrefix => Url.Combine(PublicUrlRoot, KeyPrefix);
 
 	}
 

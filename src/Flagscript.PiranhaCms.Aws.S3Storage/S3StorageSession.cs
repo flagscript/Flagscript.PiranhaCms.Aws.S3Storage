@@ -48,7 +48,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
         /// <param name="logger">Namespace <see cref="ILogger"/> used for logging.</param>
         public S3StorageSession(PiranhaS3StorageOptions storageOptions, AWSOptions awsOptions, ILogger logger)
 		{
-            StorageOptions = storageOptions ?? throw new ArgumentNullException(nameof(storageOptions));
+			StorageOptions = storageOptions ?? throw new ArgumentNullException(nameof(storageOptions));
 			if (awsOptions != null)
 			{
 				S3Client = awsOptions.CreateServiceClient<IAmazonS3>();
@@ -57,8 +57,8 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 			{
 				S3Client = new AmazonS3Client();
 			}
-            Logger = logger;
-        }
+			Logger = logger;
+		}
 
 		/// <summary>
 		/// Deletes the content for the specified media.
@@ -71,8 +71,8 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 			try
 			{
 				await S3Client.DeleteObjectAsync(StorageOptions.BucketName, objectKey);
-                Logger?.LogInformation($"Successfully deleted Piranha S3 Media {id}");
-                return true;
+				Logger?.LogInformation($"Successfully deleted Piranha S3 Media {id}");
+				return true;
 			}
 			catch (Exception)
 			{
@@ -85,8 +85,8 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// </summary>
 		public void Dispose()
 		{
-            Logger?.LogDebug("Closing Piranha S3 media storage session");
-            S3Client.Dispose();
+			Logger?.LogDebug("Closing Piranha S3 media storage session");
+			S3Client.Dispose();
 			GC.SuppressFinalize(this);
 		}
 
@@ -102,11 +102,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 
 			try
 			{
-                using (var getObjectResponse = await S3Client.GetObjectAsync(StorageOptions.BucketName, objectKey))
-                using (var responseStream = getObjectResponse.ResponseStream)
-                {
-                    responseStream.CopyTo(stream);
-                }
+				using (var getObjectResponse = await S3Client.GetObjectAsync(StorageOptions.BucketName, objectKey))
+				using (var responseStream = getObjectResponse.ResponseStream)
+				{
+					responseStream.CopyTo(stream);
+				}
 				return true;
 			}
 			catch (Exception)
@@ -133,9 +133,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 				InputStream = stream
 			};
 			await S3Client.PutObjectAsync(putRequest);            
-            var mediaUrl = Url.Combine(StorageOptions.PublicUrlPrefix, id);
-            Logger?.LogInformation($"Successfully added Piranha S3 Media {id}, Content Type {contentType} to public URL {mediaUrl}");
-            return mediaUrl;
+			var mediaUrl = Url.Combine(StorageOptions.PublicUrlPrefix, id);
+			Logger?.LogInformation($"Successfully added Piranha S3 Media {id}, Content Type {contentType} to public URL {mediaUrl}");
+			return mediaUrl;
 		}
 
 		/// <summary>
@@ -149,7 +149,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		{
 			using (var memoryStream = new MemoryStream(bytes))
 			{
-				return await PutAsync(id, contentType, memoryStream);
+				return await PutAsync(id, contentType, memoryStream).ConfigureAwait(false);
 			}
 		}
 

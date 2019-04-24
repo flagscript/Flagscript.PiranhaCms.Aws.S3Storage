@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackOnBuild>true</PackOnBuild>
+    <PackOnBuild>false</PackOnBuild>
     <PackageVersion>1.0.0-beta</PackageVersion>
     <Authors>Greg Kaestle, Flagscript</Authors>
     <Company>Flagscript</Company>
@@ -18,7 +18,6 @@
     <PackageReleaseNotes>Beta Release</PackageReleaseNotes>
     <Summary>S3/Cloudfront Media Provider for Piranha CMS</Summary>
     <PackageTags>dotnet, dotnet-standard, dotnet-library, flagscript, aws, aws-s3, cms, piranha, piranhacms</PackageTags>
-    <Title>Flagscript.PiranhaCms.Aws.S3Storage</Title>
     <Description>S3/Cloudfront Media Provider for Piranha CMS</Description>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
@@ -32,6 +31,6 @@
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.100.1" />
     <PackageReference Include="Piranha" Version="6.0.0" />
     <PackageReference Include="Flurl" Version="2.4.0" />
-    <PackageReference Include="Flagscript" Version="3.0.0" />
+    <PackageReference Include="Flagscript" Version="3.1.0" />
   </ItemGroup>
 </Project>

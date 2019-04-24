@@ -14,7 +14,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// The default section where settings are read from the IConfiguration object.
 		/// This is set to "Flagscript.PiranhaCms.Aws.S3Storage".
 		/// </summary>
-		public const string DEFAULT_CONFIG_SECTION = "Flagscript.PiranhaCms.Aws.S3Storage";
+		public static readonly string DEFAULT_CONFIG_SECTION = "Flagscript.PiranhaCms.Aws.S3Storage";
 
 		/// <summary>
 		/// Constructs an <see cref="PiranhaS3StorageOptions"/> class with the options 
@@ -22,9 +22,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// </summary>
 		/// <param name="config"><see cref="IConfiguration"/> to check</param>
 		/// <returns>The <see cref="PiranhaS3StorageOptions"/> containing the values set in configuration system.</returns>
-		public static PiranhaS3StorageOptions GetS3StorageOptions(this IConfiguration config)
+		public static PiranhaS3StorageOptions GetPiranhaS3StorageOptions(this IConfiguration config)
 		{
-			return GetS3StorageOptions(config, DEFAULT_CONFIG_SECTION);
+			return GetPiranhaS3StorageOptions(config, DEFAULT_CONFIG_SECTION);
 		}
 
 		/// <summary>
@@ -34,7 +34,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		/// <param name="config"><see cref="IConfiguration"/> to check</param>
 		/// <param name="configSection">The config section to extract <see cref="PiranhaS3StorageOptions"/> from.</param>
 		/// <returns>The <see cref="PiranhaS3StorageOptions"/> containing the values set in configuration system.</returns>
-		public static PiranhaS3StorageOptions GetS3StorageOptions(this IConfiguration config, string configSection)
+		public static PiranhaS3StorageOptions GetPiranhaS3StorageOptions(this IConfiguration config, string configSection)
 		{
 			var options = new PiranhaS3StorageOptions();
 

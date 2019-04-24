@@ -7,8 +7,6 @@
 	internal static class TestConstants
 	{
 
-		#region Const / Static
-
 		/// <summary>
 		/// Valid bucket name to be used in <see cref="S3StorageConfiguration"/> for
 		/// positive unit testing.
@@ -26,8 +24,6 @@
 		/// positive unit testing.
 		/// </summary>
 		internal const string ValidUnitTestUriHost = "https://flagscript.technology";
-
-		#endregion
 
 	}
 
