@@ -32,6 +32,6 @@
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.100.1" />
     <PackageReference Include="Piranha" Version="6.0.0" />
     <PackageReference Include="Flurl" Version="2.4.0" />
-    <PackageReference Include="Flagscript" Version="3.0.0" />
+    <PackageReference Include="Flagscript" Version="3.1.0" />
   </ItemGroup>
 </Project>
