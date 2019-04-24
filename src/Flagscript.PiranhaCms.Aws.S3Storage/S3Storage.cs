@@ -20,30 +20,30 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 	public class S3Storage : IStorage
 	{
 
-        /// <summary>
-        /// Configuration options for <see cref="S3Storage"/>.
-        /// </summary>
-        /// <value>Configuration options for <see cref="S3Storage"/>.</value>
-        internal PiranhaS3StorageOptions StorageOptions { get; private set; }
+		/// <summary>
+		/// Configuration options for <see cref="S3Storage"/>.
+		/// </summary>
+		/// <value>Configuration options for <see cref="S3Storage"/>.</value>
+		internal PiranhaS3StorageOptions StorageOptions { get; private set; }
 
-        /// <summary>
-        /// Configuration options for the Amazon S3 Client.
-        /// </summary>
-        /// <value>Configuration options for the Amazon S3 Client.</value>
-        internal AWSOptions AwsOptions { get; private set; }
+		/// <summary>
+		/// Configuration options for the Amazon S3 Client.
+		/// </summary>
+		/// <value>Configuration options for the Amazon S3 Client.</value>
+		internal AWSOptions AwsOptions { get; private set; }
 
-        /// <summary>
-        /// Namespace <see cref="ILogger"/> used for logging.
-        /// </summary>
-        /// <value>Namespace <see cref="ILogger"/> used for logging.</value>
-        internal ILogger Logger { get; private set; }
+		/// <summary>
+		/// Namespace <see cref="ILogger"/> used for logging.
+		/// </summary>
+		/// <value>Namespace <see cref="ILogger"/> used for logging.</value>
+		internal ILogger Logger { get; private set; }
 
-        /// <summary>
-        /// Creates a new <see cref="S3Storage"/> with a specified configuration.
-        /// </summary>
-		/// <param name="storageOptions"><see cref="S3StorageOptions"/> used to configure the Piranda S3 storage.</param>
+		/// <summary>
+		/// Creates a new <see cref="S3Storage"/> with a specified configuration.
+		/// </summary>
+		/// <param name="storageOptions"><see cref="PiranhaS3StorageOptions"/> used to configure the Piranda S3 storage.</param>
 		/// <param name="awsOptions">The <see cref="AWSOptions"/> used to create the S3 service client.</param>
-        /// <param name="logger">Namespace <see cref="ILogger"/> used for logging.</param>
+		/// <param name="logger">Namespace <see cref="ILogger"/> used for logging.</param>
 		internal S3Storage(PiranhaS3StorageOptions storageOptions, AWSOptions awsOptions, ILogger logger)
 		{
 			StorageOptions = storageOptions ?? throw new ArgumentNullException(nameof(storageOptions));
