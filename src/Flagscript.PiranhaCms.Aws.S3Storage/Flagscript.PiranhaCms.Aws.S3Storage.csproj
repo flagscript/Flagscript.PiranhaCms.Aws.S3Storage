@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackOnBuild>true</PackOnBuild>
+    <PackOnBuild>false</PackOnBuild>
     <PackageVersion>1.0.0-beta</PackageVersion>
     <Authors>Greg Kaestle, Flagscript</Authors>
     <Company>Flagscript</Company>
