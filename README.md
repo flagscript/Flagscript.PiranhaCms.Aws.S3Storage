@@ -32,7 +32,7 @@ Flagscript.PiranhaCms.Aws.S3Storage is available as a NuGet package:
 > dotnet add package Flagscript.PiranhaCms.Aws.S3Storage --version 1.0.0-alpha
 ```
 
-###  .csproj
+### .csproj
 
 ```xml
 <PackageReference Include="Flagscript.PiranhaCms.Aws.S3Storage" Version="1.0.0-alpha" />
@@ -51,7 +51,7 @@ the [tags on this repository](https://github.com/flagscript/Flagscript.PiranhaCm
 
 ## Authors
 
-* **Greg Kaestle** - [Flagscript](https://flagscript.net)
+* **Greg Kaestle** - [Flagscript](https://flagscript.technology)
 
 ## License
 

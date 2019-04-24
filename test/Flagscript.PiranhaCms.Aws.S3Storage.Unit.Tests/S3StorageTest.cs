@@ -39,7 +39,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			try
 			{
 
-				var storage =new S3Storage(null, null, null);
+				new S3Storage(null, null, null);
 				Assert.True(false, "null storageOptions did not throw ArgumentNullException");
 
 			}
