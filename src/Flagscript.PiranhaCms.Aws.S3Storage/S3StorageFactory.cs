@@ -128,7 +128,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 
 				if (string.IsNullOrEmpty(finalS3StorateOptions.BucketName))
 				{
-					throw new FlagscriptException("Piranha S3 BucketName not configured");
+					throw new FlagscriptConfigurationException("Piranha S3 BucketName not configured");
 				}
 				else
 				{
@@ -169,7 +169,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 
                 if (string.IsNullOrEmpty(finalS3StorateOptions.PublicUrlRoot))
                 {
-                    throw new FlagscriptException("Piranha S3 PublicUrlRoot not configured");
+                    throw new FlagscriptConfigurationException("Piranha S3 PublicUrlRoot not configured");
                 }
                 else
                 {
@@ -181,13 +181,13 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
             // Validate we have a valid public uri root. 
             if (!Uri.IsWellFormedUriString(finalS3StorateOptions.PublicUrlRoot, UriKind.Absolute))
             {
-                throw new FlagscriptException("Piranha S3 PublicUrlRoot is not a valid endpoint");
+                throw new FlagscriptConfigurationException("Piranha S3 PublicUrlRoot is not a valid endpoint");
             }
 
             // Validate we have a valid public uri prefix. 
             if (!Uri.IsWellFormedUriString(finalS3StorateOptions.PublicUrlPrefix, UriKind.Absolute))
             {
-                throw new FlagscriptException("Piranha S3 PublicUrlPrefix is not a valid endpoint");
+                throw new FlagscriptConfigurationException("Piranha S3 PublicUrlPrefix is not a valid endpoint");
             }
 
             return new S3Storage(finalS3StorateOptions, awsOptions, logger);

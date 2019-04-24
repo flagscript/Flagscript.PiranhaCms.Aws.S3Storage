@@ -236,7 +236,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
             }
             catch (Exception ex)
             {
-                Assert.IsAssignableFrom<FlagscriptException>(ex);
+                Assert.IsAssignableFrom<FlagscriptConfigurationException>(ex);
             }
 
         }
@@ -269,7 +269,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
             }
             catch (Exception ex)
             {
-                Assert.IsAssignableFrom<FlagscriptException>(ex);
+                Assert.IsAssignableFrom<FlagscriptConfigurationException>(ex);
             }
 
         }
@@ -303,7 +303,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
             }
             catch (Exception ex)
             {
-                Assert.IsAssignableFrom<FlagscriptException>(ex);
+                Assert.IsAssignableFrom<FlagscriptConfigurationException>(ex);
             }
 
         }
