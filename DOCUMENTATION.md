@@ -21,8 +21,8 @@ This section explains the various options for configuring the Flagscript.Piranha
 The Flagscript.PiranhaCms.Aws.S3Storage library has 3 configuration settings. These are as follows:
 
 - Bucket Name: Name of S3 bucket with static website hosting enabled.
-- Key Prefix: Optional Key Prefix for items written to the S3 bucket. For example, a key prefix of flagscript/dev will write items to [bucket]/flagscript/dev/[item name]. This is an optional setting. If it is not set, it will default to 'uploads'. You can set it to the empty string or null if you wish to write to the root of th ebucket. 
-- Public Root Url: The scheme/domain portion of the URL assigned to your S3 bucket, or a CloudFront distribution on top of that bucket. e.g. http://[my-bucket].s3-website-[region].amazonaws.com/
+- Key Prefix: Optional Key Prefix for items written to the S3 bucket. For example, a key prefix of flagscript/dev will write items to {bucket}/flagscript/dev/{item name}. This is an optional setting. If it is not set, it will default to 'uploads'. You can set it to the empty string or null if you wish to write to the root of th ebucket. 
+- Public Root Url: The scheme/domain portion of the URL assigned to your S3 bucket, or a CloudFront distribution on top of that bucket. e.g. http://{my-bucket}.s3-website-{region}.amazonaws.com/
 
 There are two ways to configure/obtain these settings programatically:
 
@@ -159,7 +159,7 @@ One final method that the PiranhaS3StorageOptions can be resolved is through env
 
 - PIRANHA_S3_BUCKET_NAME: Name of the public website bucket to use. 
 - PIRANHA_S3_KEY_PREFIX: The key prefix to use (defaults to "uploads" if not found)
-- KEY_PREFIX_URL_ROOT: The scheme/domain portion of the URL assigned to your S3 bucket, or a CloudFront distribution.
+- PIRANHA_S3_URL_ROOT: The scheme/domain portion of the URL assigned to your S3 bucket, or a CloudFront distribution.
 
 This can be useful if you are running Piranha as a serverless MVC website in a Lambda function. You can use CloudFormation template to pass the resolved values as environment variables to the Lambda Function and everything should resolve. 
 
@@ -229,7 +229,7 @@ Resources:
         Variables:
           PIRANHA_S3_BUCKET_NAME: !Ref PiranhaMediaBucket
           PIRANHA_S3_KEY_PREFIX: !Ref PiranhaMediaUploadsKeyPrefix
-          KEY_PREFIXURL_ROOT: !GetAtt PiranhaMediaCdn
+          PIRANHA_S3_URL_ROOT: !GetAtt PiranhaMediaCdn
           ASPNETCORE_ENVIRONMENT: !Ref AspNetCoreEnvironment
       Events:
         ProxyResource:

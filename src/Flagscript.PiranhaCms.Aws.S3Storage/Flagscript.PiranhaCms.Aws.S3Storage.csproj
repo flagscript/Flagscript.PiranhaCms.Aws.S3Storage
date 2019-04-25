@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>false</PackOnBuild>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Authors>Greg Kaestle, Flagscript</Authors>
     <Company>Flagscript</Company>
     <Copyright>©2019 Flagscript</Copyright>
@@ -14,14 +14,14 @@
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Owners>Greg Kaestle, Flagscript</Owners>
-    <PackageProjectUrl>https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage/projects/1</PackageProjectUrl>
-    <PackageReleaseNotes>Beta Release</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage/projects/2</PackageProjectUrl>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
     <Summary>S3/Cloudfront Media Provider for Piranha CMS</Summary>
     <PackageTags>dotnet, dotnet-standard, dotnet-library, flagscript, aws, aws-s3, cms, piranha, piranhacms</PackageTags>
     <Description>S3/Cloudfront Media Provider for Piranha CMS</Description>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
-    <InformationalVersion>1.0.0</InformationalVersion>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+    <InformationalVersion>1.0.1</InformationalVersion>
     <PackageId>Flagscript.PiranhaCms.Aws.S3Storage</PackageId>
     <Product>Flagscript.PiranhaCms.Aws.S3Storage</Product>
   </PropertyGroup>

@@ -33,13 +33,13 @@ Flagscript.PiranhaCms.Aws.S3Storage is available as a NuGet package:
 ### .NET CLI
 
 ```bash
-> dotnet add package Flagscript.PiranhaCms.Aws.S3Storage --version 1.0.0
+> dotnet add package Flagscript.PiranhaCms.Aws.S3Storage --version 1.0.1
 ```
 
 ### .csproj
 
 ```xml
-<PackageReference Include="Flagscript.PiranhaCms.Aws.S3Storage" Version="1.0.0" />
+<PackageReference Include="Flagscript.PiranhaCms.Aws.S3Storage" Version="1.0.1" />
 ```
 
 ## Contributing
