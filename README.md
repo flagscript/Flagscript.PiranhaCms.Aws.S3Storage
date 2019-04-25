@@ -20,7 +20,7 @@ services.AddS3Storage(storageConfig);
 
 ## Documentation
 
-[Documentation](./documentation/DOCUMENTATION.md) on how to use the Flagscript.Piranha.Aws.S3Storage library is available within this repository. 
+[Documentation](./DOCUMENTATION.md) on how to use the Flagscript.Piranha.Aws.S3Storage library is available within this repository. 
 
 ## Download
 
