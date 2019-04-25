@@ -14,13 +14,17 @@ S3/Cloudfront Media Provider for Piranha CMS.
 The S3 File Storage for Piranha CMS operates much the same as [Local File Storage](http://piranhacms.org/docs/components/media-storage/local-file-storage) or [Azure Blob Storage](http://piranhacms.org/docs/components/media-storage/azure-blob-storage). You register S3 File Storage with the default configuration in `ConfigureServices()` with the following code:
 
 ```csharp
-var storageConfig = new S3StorageConfiguration("my-bucket-name");
+var storageConfig = new S3StorageConfiguration
+{
+	BucketName = "my-bucket-name",
+	PublicUrlRoot = ""http://domain-to-my-bucket or https://my-cloudfront-bucket-distribution"
+};
 services.AddS3Storage(storageConfig);
 ```
 
 ## Documentation
 
-[Documentation](./documentation/DOCUMENTATION.md) on how to use the Flagscript.Piranha.Aws.S3Storage library is available within this repository. 
+[Documentation](./DOCUMENTATION.md) on how to use the Flagscript.Piranha.Aws.S3Storage library is available within this repository. 
 
 ## Download
 
@@ -29,13 +33,13 @@ Flagscript.PiranhaCms.Aws.S3Storage is available as a NuGet package:
 ### .NET CLI
 
 ```bash
-> dotnet add package Flagscript.PiranhaCms.Aws.S3Storage --version 1.0.0-beta
+> dotnet add package Flagscript.PiranhaCms.Aws.S3Storage --version 1.0.0
 ```
 
 ### .csproj
 
 ```xml
-<PackageReference Include="Flagscript.PiranhaCms.Aws.S3Storage" Version="1.0.0-beta" />
+<PackageReference Include="Flagscript.PiranhaCms.Aws.S3Storage" Version="1.0.0" />
 ```
 
 ## Contributing

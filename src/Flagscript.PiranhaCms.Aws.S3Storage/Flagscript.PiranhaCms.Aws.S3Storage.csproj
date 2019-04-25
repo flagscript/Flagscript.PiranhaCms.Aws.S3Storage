@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackOnBuild>false</PackOnBuild>
-    <PackageVersion>1.0.0-beta</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>Greg Kaestle, Flagscript</Authors>
     <Company>Flagscript</Company>
     <Copyright>©2019 Flagscript</Copyright>
@@ -21,7 +21,7 @@
     <Description>S3/Cloudfront Media Provider for Piranha CMS</Description>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
-    <InformationalVersion>1.0.0-beta</InformationalVersion>
+    <InformationalVersion>1.0.0</InformationalVersion>
     <PackageId>Flagscript.PiranhaCms.Aws.S3Storage</PackageId>
     <Product>Flagscript.PiranhaCms.Aws.S3Storage</Product>
   </PropertyGroup>
