@@ -8,6 +8,8 @@ Thanks for using Flagscript.PiranhaCms.Aws.S3Storage! If you have any questons o
    - Flagscript Library Configuration
    - AWS Credential Configuration
 2. Service Registration
+   - Passing in Values
+   - Auto Resolution
 3. Using CloudFormation and Environment Variables
 
 ## Configuration
@@ -85,3 +87,70 @@ In addition to standard credential resolution, this library supports the Amazon.
 ## Service Registration
 
 The S3 File Storage for Piranha CMS operates much the same as [Local File Storage](http://piranhacms.org/docs/components/media-storage/local-file-storage) or [Azure Blob Storage](http://piranhacms.org/docs/components/media-storage/azure-blob-storage). You register S3 File Storage in the `ConfigureServices()` method of your application.
+
+### Passing in Values
+
+Configuration values can be passed in to the service resolution. 
+
+``` csharp
+var configBuilder = new ConfigurationBuilder()
+	.AddJsonFile("appsettings.json", optional: false);
+var configuration = configBuilder.Build();
+
+var awsOptions = configuration.GetAWSOptions();
+var s3StorageOptions = iConfig.GetPiranhaS3StorageOptions();
+
+// Register Services
+IServiceCollection services = new ServiceCollection();
+services.AddPiranhaS3Storage(s3StorageOptions, awsOptions);
+var serviceProvider = services.BuildServiceProvider();
+
+// S3 storage configured with passed in values (Piranha will use this - you don't have to)
+var iStorage = serviceProvider.GetService<IStorage>();
+```
+
+Values which are passed in to the AddPiranhaS3Storage registration will always take precidence. 
+
+### Auto Resolution
+
+In addition to passed in values, the AddPiranhaS3Storage method can be called without either parameter. This will attempt to resolve values the first time the IStorage is resolved. 
+
+This first precidence of auto resolution is to search the storage colleciton itself.
+
+``` csharp
+var configBuilder = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: false);
+var configuration = configBuilder.Build();
+
+var awsOptions = configuration.GetAWSOptions();
+var s3StorageOptions = iConfig.GetPiranhaS3StorageOptions();
+
+// Register Services
+IServiceCollection services = new ServiceCollection();
+services.AddDefaultAWSOptions(awsOptions);
+services.AddPiranhaS3StorageOptions(s3StorageOptions);
+services.AddPiranhaS3Storage();
+var serviceProvider = services.BuildServiceProvider();
+
+// S3 storage configurations in service provider (Piranha will use this - you don't have to)
+var iStorage = serviceProvider.GetService<IStorage>();
+```
+
+The second precidence of auto resolution is to search for an IConfiguration in the service provider and attempt to read configurations from it without you having to explicitly register them.
+
+``` csharp
+var configBuilder = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: false);
+var configuration = configBuilder.Build();
+
+// Register Services
+IServiceCollection services = new ServiceCollection();
+services.AddSingleton(configuration);
+services.AddPiranhaS3Storage();
+var serviceProvider = services.BuildServiceProvider();
+
+// S3 storage configurations in appsettings.json automatically resolved (Piranha will use this - you don't have to)
+var iStorage = serviceProvider.GetService<IStorage>();
+```
+
+## Using CloudFormation and Environment Variables
