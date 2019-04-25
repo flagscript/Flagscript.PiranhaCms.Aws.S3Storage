@@ -14,7 +14,11 @@ S3/Cloudfront Media Provider for Piranha CMS.
 The S3 File Storage for Piranha CMS operates much the same as [Local File Storage](http://piranhacms.org/docs/components/media-storage/local-file-storage) or [Azure Blob Storage](http://piranhacms.org/docs/components/media-storage/azure-blob-storage). You register S3 File Storage with the default configuration in `ConfigureServices()` with the following code:
 
 ```csharp
-var storageConfig = new S3StorageConfiguration("my-bucket-name");
+var storageConfig = new S3StorageConfiguration
+{
+	BucketName = "my-bucket-name",
+	PublicUrlRoot = ""http://domain-to-my-bucket or https://my-cloudfront-bucket-distribution"
+};
 services.AddS3Storage(storageConfig);
 ```
 

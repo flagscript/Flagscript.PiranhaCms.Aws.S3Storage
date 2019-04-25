@@ -8,8 +8,7 @@ Thanks for using Flagscript.PiranhaCms.Aws.S3Storage! If you have any questons o
    - Flagscript Library Configuration
    - AWS Credential Configuration
 2. Service Registration
-3. S3/Cloudfront Configuration
-4. Using Cloudformation
+3. Using CloudFormation and Environment Variables
 
 ## Configuration
 
@@ -53,7 +52,7 @@ The settings can also be configured in appsettings.json. The default configurati
 ``` json
 "Flagscript.PiranhaCms.Aws.S3Storage": {
 	"BucketName": "my-public-bucket",
-	"KeyPrefix": "path-to-my-items"
+	"KeyPrefix": "path-to-my-items",
 	"PublicUrlRoot": "http://domain-to-my-bucket or https://my-cloudfront-bucket-distribution"
 }
 ```
@@ -76,3 +75,13 @@ s3StorageOptions = iConfig.getPirnhaS3StorageOptions("My.Other.Key");
 // Obtain the settings from the root level
 s3StorageOptions = iConfig.getPirnhaS3StorageOptions("");
 ```
+
+### AWS Credential Configuration
+
+Flagscript.PiranhaCms.Aws.S3Storage utilizes standard mechanisms for AWS Credentials. S3 is accessed via the [AmazonS3Client](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/S3/TS3Client.html) class. With no credentials specified in the application, this will resolve credentials using [dotnet SDK credential resolution](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-config-creds.html).
+
+In addition to standard credential resolution, this library supports the Amazon.Extensions.NETCore.Setup library extension. You may configure the AWS credentials to be used with this library as described in [Configuring AWS SDK with .NET Core](https://aws.amazon.com/blogs/developer/configuring-aws-sdk-with-net-core/).
+
+## Service Registration
+
+The S3 File Storage for Piranha CMS operates much the same as [Local File Storage](http://piranhacms.org/docs/components/media-storage/local-file-storage) or [Azure Blob Storage](http://piranhacms.org/docs/components/media-storage/azure-blob-storage). You register S3 File Storage in the `ConfigureServices()` method of your application.
