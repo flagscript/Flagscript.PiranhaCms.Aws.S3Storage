@@ -1,6 +1,6 @@
 # Flagscript.PiranhaCms.Aws.S3Storage
 
-S3/Cloudfront Media Provider for Piranha CMS.
+S3/Cloudfront Media Provider for [Piranha CMS](http://piranhacms.org).
 
 | Version | Status |
 | --- | --- |
