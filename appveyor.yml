@@ -25,7 +25,7 @@ clone_depth: 1
 
 #environment variables
 environment:
-  use_version: 1.0.0y
+  use_version: 1.0.0
 
 # scripts that run after cloning repository
 install:
