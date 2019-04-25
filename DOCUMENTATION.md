@@ -22,7 +22,7 @@ The Flagscript.PiranhaCms.Aws.S3Storage library has 3 configuration settings. Th
 
 - Bucket Name: Name of S3 bucket with static website hosting enabled.
 - Key Prefix: Optional Key Prefix for items written to the S3 bucket. For example, a key prefix of flagscript/dev will write items to [bucket]/flagscript/dev/[item name]. This is an optional setting. If it is not set, it will default to 'uploads'. You can set it to the empty string or null if you wish to write to the root of th ebucket. 
-- Public Root Url: The scheme/domain portion of the URL assigned to your S3 bucket, or a CloudFront distribution on top of that bucket. e.g. http://[my-bucket]-int.s3-website-us-west-2.amazonaws.com/
+- Public Root Url: The scheme/domain portion of the URL assigned to your S3 bucket, or a CloudFront distribution on top of that bucket. e.g. http://[my-bucket].s3-website-[region].amazonaws.com/
 
 There are two ways to configure/obtain these settings programatically:
 
@@ -154,3 +154,93 @@ var iStorage = serviceProvider.GetService<IStorage>();
 ```
 
 ## Using CloudFormation and Environment Variables
+
+One final method that the PiranhaS3StorageOptions can be resolved is through environment variables. If the service is not registered with objects and there are no values in appsettings configuration, it will attempt to resolve the configuration with the following environment variables:
+
+- PIRANHA_S3_BUCKET_NAME: Name of the public website bucket to use. 
+- PIRANHA_S3_KEY_PREFIX: The key prefix to use (defaults to "uploads" if not found)
+- KEY_PREFIX_URL_ROOT: The scheme/domain portion of the URL assigned to your S3 bucket, or a CloudFront distribution.
+
+This can be useful if you are running Piranha as a serverless MVC website in a Lambda function. You can use CloudFormation template to pass the resolved values as environment variables to the Lambda Function and everything should resolve. 
+
+The following CloudFormation truncated example should provide an idea.
+
+``` yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless Piranha CMS Wireup in AWS
+
+Parameters:
+  PiranhaMediaUploadsKeyPrefix:
+    Type: String
+    Default: uploads
+    Description: Key Prefix used for Piranha CMS media uploads
+  AspNetCoreEnvironment:
+    Type: String
+    AllowedValues:
+      - Development
+      - Staging
+      - Production
+    Default: Development
+    Description: Value to use for bootstraping ASPNETCORE_ENVIRONMENT environment variable.
+
+Resources:
+
+  PiranhaMediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: piranhamediabucket
+
+  CloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Ref PiranhaMediaBucket
+
+  PiranhaMediaBucketReadPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref PiranhaMediaBucket
+      PolicyDocument:
+        Statement:
+        - Action: 's3:GetObject'
+          Effect: Allow
+          Resource: !Sub 'arn:aws:s3:::${PiranhaMediaBucket}/*'
+          Principal:
+            CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+
+  PiranhaMediaCdn:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+        - DomainName: !GetAtt 'PiranhaMediaBucket.DomainName'
+          Id: S3Origin
+          S3OriginConfig:
+            OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
+
+  ServerlessPiranhaMvc:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: Assembly::Class::FunctionHandlerAsync
+      CodeUri: 
+      Environment: 
+        Variables:
+          PIRANHA_S3_BUCKET_NAME: !Ref PiranhaMediaBucket
+          PIRANHA_S3_KEY_PREFIX: !Ref PiranhaMediaUploadsKeyPrefix
+          KEY_PREFIXURL_ROOT: !GetAtt PiranhaMediaCdn
+          ASPNETCORE_ENVIRONMENT: !Ref AspNetCoreEnvironment
+      Events:
+        ProxyResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+        RootResource:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+
+```
