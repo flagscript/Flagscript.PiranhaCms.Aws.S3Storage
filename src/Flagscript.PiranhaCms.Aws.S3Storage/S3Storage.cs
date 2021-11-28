@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Amazon.Extensions.NETCore.Setup;
 using Flurl;
 using Piranha;
+using Piranha.Models;
 
 namespace Flagscript.PiranhaCms.Aws.S3Storage
 {
@@ -58,23 +59,35 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage
 		public Task<IStorageSession> OpenAsync()
 		{
 			Logger?.LogDebug("Opening Piranha S3 media storage session");
-			return Task.FromResult<IStorageSession>(new S3StorageSession(StorageOptions, AwsOptions, Logger));
+			return Task.FromResult<IStorageSession>(new S3StorageSession(StorageOptions, AwsOptions, this, Logger));
 		}
 
 		/// <summary>
 		/// Gets the public URL for the given media object.
 		/// </summary>
-		/// <param name="id">The media resource id</param>
+		/// <param name="media">The media resource</param>
+		/// <param name="filename">The associated file name</param>
 		/// <returns>The public URL.</returns>
-		public string GetPublicUrl(string id)
-		{
-			if (!string.IsNullOrWhiteSpace(id))
+		public string GetPublicUrl(Media media, string filename)
+        {
+			if (media != null && !string.IsNullOrWhiteSpace(filename))
 			{
-				return Url.Combine(StorageOptions.PublicUrlPrefix, id);
+				return Url.Combine(StorageOptions.PublicUrlPrefix, media.Id.ToString(), System.Web.HttpUtility.UrlPathEncode(filename));
 			}
 			return null;
 		}
 
-	}
+		/// <summary>
+		/// Returns the resource name for the specified media and filename
+		/// </summary>
+		/// <param name="media">The media resource</param>
+		/// <param name="filename">The associated file name</param>
+		/// <returns></returns>
+		public string GetResourceName(Media media, string filename)
+        {
+			var objectKey = Url.Combine(StorageOptions.KeyPrefix, media.Id.ToString(), System.Web.HttpUtility.UrlPathEncode(filename));
+			return objectKey;
+		}
+    }
 
 }

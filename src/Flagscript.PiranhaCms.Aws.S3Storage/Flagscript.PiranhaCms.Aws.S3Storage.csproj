@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <PackOnBuild>false</PackOnBuild>
     <PackageVersion>1.0.1</PackageVersion>
     <Authors>Greg Kaestle, Flagscript</Authors>
@@ -27,9 +27,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.S3" Version="3.3.0" />
-    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.100.1" />
-    <PackageReference Include="Piranha" Version="6.0.0" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.5" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.1" />
+    <PackageReference Include="Piranha" Version="10.0.0" />
     <PackageReference Include="Flurl" Version="2.4.0" />
     <PackageReference Include="Flagscript" Version="3.1.0" />
   </ItemGroup>
