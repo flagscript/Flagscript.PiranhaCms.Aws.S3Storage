@@ -5,6 +5,7 @@ using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using Piranha;
+using Piranha.Models;
 using Xunit;
 
 using static Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests.TestConstants;
@@ -76,8 +77,9 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 
 			var storageProvider = serviceProvider.GetService<IStorage>();
 			Assert.NotNull(storageProvider);
-			var testId = Guid.NewGuid().ToString();
-			var testUrl = storageProvider.GetPublicUrl(testId);
+			var testId = Guid.NewGuid();
+			var m = new Media() { Id = testId, Filename = "SomeFile" };
+			var testUrl = storageProvider.GetPublicUrl(m, "SomeFile");
 			Assert.False(string.IsNullOrWhiteSpace(testUrl));
 		}
 

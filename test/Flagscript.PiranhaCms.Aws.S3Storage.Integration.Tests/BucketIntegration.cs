@@ -43,14 +43,18 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 		{
 
 			// Create an object with the S3 Client
-			var objectId = Guid.NewGuid().ToString();
+			var objectId = Guid.NewGuid();
 			var objectKey = $"uploads/{objectId}";
-			using (var stringStream = new MemoryStream(Encoding.UTF8.GetBytes("hi")))
+			var fileName = "myFile.txt";
+			Piranha.Models.Media m = new Piranha.Models.Media();
+			m.Filename = fileName;
+			m.Id = objectId;
+            using (var stringStream = new MemoryStream(Encoding.UTF8.GetBytes("hi")))
 			{
 				PutObjectRequest putRequest = new PutObjectRequest
 				{
 					BucketName = TestFixture.BucketName,
-					Key = objectKey,
+					Key = TestFixture.S3Storage.GetResourceName(m, fileName),
 					ContentType = "text/plain",
 					InputStream = stringStream
 				};
@@ -60,7 +64,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 			// Delete with IStorage
 			using (var storageSession = await TestFixture.S3Storage.OpenAsync())
 			{
-				await storageSession.DeleteAsync(objectId);
+				await storageSession.DeleteAsync(m, fileName);
 			}
 
 			// See if it deleted
@@ -85,14 +89,20 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 		{
 
 			// Create an object with the S3 Client
-			var objectId = Guid.NewGuid().ToString();
+			var objectId = Guid.NewGuid();
 			var objectKey = $"uploads/{objectId}";
+			var fileName = "myFile.txt";
+			Piranha.Models.Media m = new Piranha.Models.Media();
+			m.Filename = fileName;
+			m.Id = objectId;
+			var key = TestFixture.S3Storage.GetResourceName(m, fileName);
+
 			using (var stringStream = new MemoryStream(Encoding.UTF8.GetBytes("hi")))
 			{
 				PutObjectRequest putRequest = new PutObjectRequest
 				{
 					BucketName = TestFixture.BucketName,
-					Key = objectKey,
+					Key = key,
 					ContentType = "text/plain",
 					InputStream = stringStream
 				};
@@ -103,13 +113,13 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 			using (var storageSession = await TestFixture.S3Storage.OpenAsync())
 			using (var memoryStream = new MemoryStream())
 			{
-				bool success = await storageSession.GetAsync(objectId, memoryStream);
+				bool success = await storageSession.GetAsync(m, fileName, memoryStream);
 				Assert.True(success);
 				Assert.Equal("hi", Encoding.ASCII.GetString(memoryStream.ToArray()));
 			}
 
 			// Try to delete it. If not - no biggie - int bucket lifecycle will.
-			await DeleteObject(objectId).ConfigureAwait(false);
+			await DeleteObject(key).ConfigureAwait(false);
 
 		}
 
@@ -121,12 +131,17 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 		{
 
 			string putUrl;
-			var objectId = Guid.NewGuid().ToString();
+			var objectId = Guid.NewGuid();
+			var fileName = "myFile.txt";
+			Piranha.Models.Media m = new Piranha.Models.Media();
+			m.Filename = fileName;
+			m.Id = objectId;
+			var key = TestFixture.S3Storage.GetResourceName(m, fileName);
 
 			// Put using the S3 IStorage
 			using (var storageSession = await TestFixture.S3Storage.OpenAsync())
 			{
-				putUrl = await storageSession.PutAsync(objectId, "text/plain", Encoding.ASCII.GetBytes("hi"));
+				putUrl = await storageSession.PutAsync(m, fileName, "text/plain", Encoding.ASCII.GetBytes("hi"));
 			}
 
 			// Test existance and equality
@@ -134,7 +149,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 			Assert.Equal("hi", text);
 
 			// Try to delete it. If not - no biggie - int bucket lifecycle will.
-			await DeleteObject(objectId);
+			await DeleteObject(key);
 
 		}
 
@@ -146,13 +161,18 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 		{
 
 			string putUrl;
-			var objectId = Guid.NewGuid().ToString();
+			var objectId = Guid.NewGuid();
+			var fileName = "myFile.txt";
+			Piranha.Models.Media m = new Piranha.Models.Media();
+			m.Filename = fileName;
+			m.Id = objectId;
+			var key = TestFixture.S3Storage.GetResourceName(m, fileName);
 
 			// Put using the S3 IStorage
 			using (var storageSession = await TestFixture.S3Storage.OpenAsync())
 			using (var stringStream = new MemoryStream(Encoding.UTF8.GetBytes("hi")))
 			{
-				putUrl = await storageSession.PutAsync(objectId, "text/plain", stringStream);
+				putUrl = await storageSession.PutAsync(m, fileName, "text/plain", stringStream);
 			}
 
 			// Test existance and equality
@@ -160,7 +180,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Integration.Tests
 			Assert.Equal("hi", text);
 
 			// Try to delete it. If not - no biggie - int bucket lifecycle will.
-			await DeleteObject(objectId).ConfigureAwait(false);
+			await DeleteObject(key).ConfigureAwait(false);
 
 		}
 

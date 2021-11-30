@@ -1,35 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <IsPackable>false</IsPackable>
-    <Authors>Greg Kaestle, Flagscript</Authors>
-    <Company>Flagscript</Company>
-    <Copyright>©2019 Flagscript</Copyright>
-    <RepositoryUrl>https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <Owners>Greg Kaestle, Flagscript</Owners>
-    <Summary>Integration tests for Flagscript.Piranha.Aws.S3Storage</Summary>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+		<Authors>Greg Kaestle, Flagscript</Authors>
+		<Company>Flagscript</Company>
+		<Copyright>©2019 Flagscript</Copyright>
+		<RepositoryUrl>https://github.com/flagscript/Flagscript.PiranhaCms.Aws.S3Storage</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<Owners>Greg Kaestle, Flagscript</Owners>
+		<Summary>Integration tests for Flagscript.Piranha.Aws.S3Storage</Summary>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.0" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
-    <PackageReference Include="Appveyor.TestLogger" Version="2.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.0" />
-    <PackageReference Include="Flurl.Http" Version="2.4.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.0" />
+		<PackageReference Include="xunit" Version="2.4.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+		<PackageReference Include="Appveyor.TestLogger" Version="2.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="Flurl.Http" Version="2.4.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Flagscript.PiranhaCms.Aws.S3Storage\Flagscript.PiranhaCms.Aws.S3Storage.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Flagscript.PiranhaCms.Aws.S3Storage\Flagscript.PiranhaCms.Aws.S3Storage.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 </Project>

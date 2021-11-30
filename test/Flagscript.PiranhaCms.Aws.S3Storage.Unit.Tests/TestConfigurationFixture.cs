@@ -38,6 +38,11 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		public IConfiguration OtherConfiguration { get; private set; }
 
 		/// <summary>
+		/// Storage required to test the session
+		/// </summary>
+		public S3Storage S3Storage { get; private set; }
+
+		/// <summary>
 		/// Contructor initializing test fixture.
 		/// </summary>
 		public TestConfigurationFixture()
@@ -64,6 +69,15 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			configBuilder = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.other.json", optional: false);
 			OtherConfiguration = configBuilder.Build();
+
+			PiranhaS3StorageOptions piranhaS3StorageOptions = new PiranhaS3StorageOptions()
+			{
+				BucketName = TestConstants.ValidUnitTestBucketName,
+				KeyPrefix = TestConstants.ValidUnitTestKeyPrefix,
+				PublicUrlRoot = TestConstants.ValidUnitTestUriHost
+			};
+
+			S3Storage = new S3Storage(piranhaS3StorageOptions, FakeAwsOptions, null);	
 
 		}
 

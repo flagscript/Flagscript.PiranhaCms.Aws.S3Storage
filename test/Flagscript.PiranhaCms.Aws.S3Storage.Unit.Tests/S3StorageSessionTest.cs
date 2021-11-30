@@ -8,6 +8,7 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Flurl;
 using Moq;
+using Piranha.Models;
 using Xunit;
 
 using static Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests.TestConstants;
@@ -56,18 +57,23 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 
 			try
 			{
-
-				new S3StorageSession(null, null, null);
+				new S3StorageSession(null, null,null, null);
 				Assert.True(false, "S3StorageSession with null cTor args did not exception");
-
 			}
 			catch (ArgumentNullException ane)
 			{
-
 				Assert.Equal("storageOptions", ane.ParamName);
-
 			}
 
+			try
+			{
+				new S3StorageSession(new PiranhaS3StorageOptions(), null, null, null);
+				Assert.True(false, "S3StorageSession with null cTor args did not exception");
+			}
+			catch (ArgumentNullException ane)
+			{
+				Assert.Equal("storage", ane.ParamName);
+			}
 		}
 
 		/// <summary>
@@ -77,7 +83,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		public async Task TestDeleteAsync()
 		{
 
-			S3StorageSession storageSession = new S3StorageSession(ValidStorageOptions, null, null);
+			S3StorageSession storageSession = new S3StorageSession( ValidStorageOptions, TestFixture.FakeAwsOptions, TestFixture.S3Storage, null);
 
 			// Moq client
 			var mock = new Mock<IAmazonS3>();
@@ -87,8 +93,14 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			storageSession.S3Client = mock.Object;
 
 			// Test S3 Response
-			var testId = Guid.NewGuid().ToString();
-			var response = await storageSession.DeleteAsync(testId);
+			var testId = Guid.NewGuid();
+			var m = new Media
+			{
+				Id = testId,
+				Filename = "TestFiles.txt"
+			};
+
+			var response = await storageSession.DeleteAsync(m, m.Filename);
 			Assert.True(response);
 
 			// Moq throws async not working. 
@@ -112,9 +124,14 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 		public async void TestGetAsync()
 		{
 
-			S3StorageSession storageSession = new S3StorageSession(ValidStorageOptions, null, null);
-			var testId = Guid.NewGuid().ToString();
-			var objectKey = Url.Combine(ValidStorageOptions.KeyPrefix, testId);
+			S3StorageSession storageSession = new S3StorageSession(ValidStorageOptions, TestFixture.FakeAwsOptions, TestFixture.S3Storage, null);
+			var testId = Guid.NewGuid();
+			var m = new Media
+			{
+				Id = testId,
+				Filename = "TestFiles.txt"
+			};
+			var objectKey = TestFixture.S3Storage.GetResourceName(m, m.Filename);
 
 			// Moq client
 			var mock = new Mock<IAmazonS3>();
@@ -129,7 +146,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 					});
 				storageSession.S3Client = mock.Object;
 
-				bool success = await storageSession.GetAsync(testId, memoryStream);
+				bool success = await storageSession.GetAsync(m, m.Filename, memoryStream);
 				Assert.True(success);
 				var outString = Encoding.UTF8.GetString(memoryStream.ToArray());
 				Assert.Contains("body", outString);
@@ -148,6 +165,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			var storageSession = new S3StorageSession(
 				ValidStorageOptions,
 				TestFixture.FakeAwsOptions,
+				TestFixture.S3Storage,
 				null
 			);
 
@@ -159,12 +177,17 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			storageSession.S3Client = mock.Object;
 
 			// Test S3 Response
-			var testId = Guid.NewGuid().ToString();
+			var testId = Guid.NewGuid();
+			var m = new Media
+			{
+				Id = testId,
+				Filename = "TestFiles.txt"
+			};
 			var contentType = "text/css";
 			using (var fileStream = new FileStream("test.css", FileMode.Open))
 			{
 
-				string uri = await storageSession.PutAsync(testId, contentType, fileStream);
+				string uri = await storageSession.PutAsync(m, m.Filename, contentType, fileStream);
 				Assert.False(string.IsNullOrWhiteSpace(uri));
 				Assert.StartsWith(ValidUnitTestUriHost, ValidUnitTestUriHost);
 
@@ -182,6 +205,7 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			var storageSession = new S3StorageSession(
 				ValidStorageOptions, 
 				TestFixture.FakeAwsOptions, 
+				TestFixture.S3Storage,
 				null
 			);
 
@@ -193,10 +217,15 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			storageSession.S3Client = mock.Object;
 
 			// Test S3 Response
-			var testId = Guid.NewGuid().ToString();
+			var testId = Guid.NewGuid();
+			var m = new Media
+			{
+				Id = testId,
+				Filename = "TestFiles.txt"
+			};
 			var contentType = "text/css";
 			var fileBytes = await File.ReadAllBytesAsync("test.css");
-			string uri = await storageSession.PutAsync(testId, contentType, fileBytes);
+			string uri = await storageSession.PutAsync(m, m.Filename, contentType, fileBytes);
 			Assert.False(string.IsNullOrWhiteSpace(uri));
 			Assert.StartsWith(ValidUnitTestUriHost, ValidUnitTestUriHost);
 

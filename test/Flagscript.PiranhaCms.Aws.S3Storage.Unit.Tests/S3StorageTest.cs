@@ -120,17 +120,21 @@ namespace Flagscript.PiranhaCms.Aws.S3Storage.Unit.Tests
 			S3Storage s3Storage = new S3Storage(storageConfiguration, null, null);
 
 			// Test null id input
-			var returnUri = s3Storage.GetPublicUrl(null);
+			var returnUri = s3Storage.GetPublicUrl(null, null);
 			Assert.Null(returnUri);
 
 			// Test empty id input
-			returnUri = s3Storage.GetPublicUrl(" ");
+			returnUri = s3Storage.GetPublicUrl(new Piranha.Models.Media(), " ");
 			Assert.Null(returnUri);
 
 			// Test Valid Url generation
-			string testId = Guid.NewGuid().ToString();
-			returnUri = s3Storage.GetPublicUrl(testId);
-			var expectedUri = Url.Combine(ValidUnitTestUriHost, ValidUnitTestKeyPrefix, testId);
+			Piranha.Models.Media media = new Piranha.Models.Media
+			{
+				Id = Guid.NewGuid(),
+				Filename = "MockFileName.txt"
+			};
+            returnUri = s3Storage.GetPublicUrl(media, media.Filename);
+			var expectedUri = Url.Combine(ValidUnitTestUriHost, ValidUnitTestKeyPrefix, media.Id.ToString(), media.Filename);
 			Assert.Equal(expectedUri, returnUri);
 
 		}
